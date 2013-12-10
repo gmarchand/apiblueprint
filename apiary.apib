@@ -1,376 +1,47 @@
 FORMAT: 1A
-HOST: https://api-data.xxx.com
+HOST: http://www.google.com
 
+# Data API
+Notes API is a *short texts saving* service similar to its physical paper presence on your table.
 
+# Group Notes
+Notes related resources of the **Notes API**
 
-# XXX Data API
-XXX Data API is the web service platform of XXX GROUP
-Where applicable this API uses the [HAL+JSON](https://github.com/mikekelly/hal_specification/blob/master/hal_specification.md) media-type to represent resources states and affordances.
-Requests with a message-body are using plain JSON to set or update resource states.
+## Notes Collection [/notes]
+### List all Notes [GET]
++ Response 200 (application/json)
 
+        [{
+          "id": 1, "title": "Jogging in park"
+        }, {
+          "id": 2, "title": "Pick-up posters from post-office"
+        }]
 
-## Authentication
-Currently the API does not provide authenticated access.
+### Create a Note [POST]
++ Request (application/json)
 
-## Media Types
+        { "title": "Buy cheese and bread for breakfast." }
 
++ Response 201 (application/json)
 
-## Error States
-The common [HTTP Response Status Codes](https://github.com/for-GET/know-your-http-well/blob/master/status-codes.md) are used with error messages.
-> HTTP Status Code: 401
+        { "id": 3, "title": "Buy cheese and bread for breakfast." }
 
-> {"status" : "401", "message":"Authenticate","code": 20003}
+## Note [/notes/{id}]
+A single Note object with all its details
 
-## Format & Version 
-Format and Version must be put in HTTP Headers
-> Accept: application/json;version=2
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
 
-Format accepted are : 
-* XML
-* JSON
-* Messagepack 
+### Retrieve a Note [GET]
++ Response 200 (application/json)
 
+    + Header
 
-## Entity & Link Expension
-You can add `include` paramater to API to expand an entity or a link inside the API. For example 
-> /programmes/13213?include=person,comments
-
-## Relationsiphs
-### To-Many Relationships
-API provides a to-many relationship as an array of IDs MUST respond to a GET request with a list of the specified documents. You can add the key parameters `ids` and a comma-separated list of the specified IDs
-> /comments?ids=5,12,17,20
-
-## Partial Representation
-You can add `fields` paramater to API to get only a partial information o f the API. For example 
-> /persons/123465?fields=fname,lname
-
-## Pagination
-You can add `offset` and `limit` parameters to collection ressources. For example 
-> /category/genre/movie?offset=3&limit=50
-
-When pagination is available, next links are in models
-
-> "_links": {
-
-> "next": "/tickets?offset=100&limit=50"
-
-> "previous": "/tickets?offset=50&limit=50"
-
-> }
-    
-
-## Caching
-API is compatible with Entity Tag `ETAG` and the request header `If-Modified-Since`
-
-## Searching
-Full text search is used as a mechanism of retrieving resource instances for a specific type of resource, it can be exposed on the API as a query parameter `q` on the resource's endpoint.
-> /persons?q=Brad Pitt
-
-## Sorting
-parameter `sort` can be used to describe sorting rules. Accommodate complex sorting requirements by letting the sort parameter take in list of comma separated fields, each with a possible unary negative to imply descending sort order. Let's look at some examples:
-
-> GET /programs?sort=-creationdate - Retrieves a list of programs in descending order of creation date
-
-> GET /tickets?sort=-priority,created_at - Retrieves a list of tickets in descending order of priority. Within a specific priority, older tickets are ordered first
-
-## Security
-All resquests are only available with HTTPS protocol
-
-All HTTP `POST` `PUT` `DELETE` Request must be signed and based on AWS Signature. You must have an `API KEY` and `API SECRET` credentials.
-1. Sort request parameters alphabetically (e.g. foo=1, bar=2, baz=3 sorts to bar=2, baz=3, foo=1)
-
-1. Percent encode every key and value that will be signed.
-
-1. Separate the encoded parameter names from their encoded values with the equals sign ( = ) (ASCII character 61), even if the parameter value is empty.
-
-1. Separate the name-value pairs with an ampersand ( & ) (ASCII character 38).
-
-1. Create the string to sign according to the following pseudo-grammar (the "\n" represents an ASCII newline character).
-> StringToSign = HTTPVerb + "\n" +
-> ValueOfHostHeaderInLowercase + "\n" +
-> HTTPRequestURI + "\n" +
-> CanonicalizedQueryString
-
-1. Include the signature parameter in the request encoded as lowercase HEX (e.g. signature=7431d31140cf412ab5caa73586d6324a)
-
-1. Calculate an RFC 2104-compliant HMAC with the string you just created, your `API SECRET` as the key, and SHA256 or SHA1 as the hash algorithm.
-
-1. Convert the resulting value to base64.
-
-1. Use the resulting value as the value of the `signature` request parameter.
-
-> /programmes?title=TitleText&apikey=13246545&signature=shjfd365g3sdf2gdsqfqs
-
-# Data API Root [/]
-Data API entry point.
-
-This resource does not have any attributes. Instead it offers the initial API affordances in the form of the HTTP Link header and 
-HAL links.
-
-## Retrieve the Entry Point [GET]
-
-+ Response 200 (application/hal+json)
-
-        {message:TODO}
-
-
-# Group Category
-
-## Programme category [/category/{sub1}/{sub2}] 
-List all programmes of a particular day
-### [GET]
-+ Parameters 
-    + sub1 (string) ... xxx
-    + sub2 (string) ... xxx
-
-+ Response 200 (text/plain)
-
-        Hello World!
-
-
-
-
-# Group Programme
-Group all programmes related ressources
-
-
-
-## Programmes [/programmes]
-
-+ Model (application/hal+json)
-    HAL+JSON representation of Programme Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
-
-    + Headers
-
-            Location : /programmes
+            X-My-Header: The Value
 
     + Body
-    
-            {
-                "_links": {
-                    "self": { "href": "/programmes/42" },
-                    "persons": { "href": "/programmes/42/persons" },
-                    "diffusion": { "href": "/programmes/42/diffusions" },
-                    "videos": { "href": "/programmes/42/videos" },
-                    "photos.id : "http://media.canalplus.fr/{width}x{height}/{id}.{ext}"
-                },
-                "id": "42",
-                "_tv": {
-                    "progid": 1231,
-                    "numaff": 13245,
-                    "numprog": 12345,
-                }
-                "photos": [{
-                    "id": "legrandjournal_20131225",
-                    "alt": "Stromae au Grand Journal du 25/12/2013",
-                }]
-                "created_at": "2014-04-14T02:15:15Z",
-                "updated_at": "2014-04-14T02:15:15Z",
-                "title": "Description of Gist",
-                "description": "String contents"
-            }
 
-### Retrieve a Message [GET]
-At this point we will utilize our `Programmes` resource model and reference it in `Response 200`.
+            { "id": 2, "title": "Pick-up posters from post-office" }
 
-+ Response 200
-
-    [Programmes][]
-
-### Create a programme [POST]
-
-+ Response 204 
-       
-## TV Schedule by day [/programmes/schedules/{epgid}/{year}/{month}/{day}] 
-List all programmes of a particular day
-### [GET]
-+ Parameters 
-    + epgid (int) ... ID of TV Channel.
-    + year (int) ... Year
-    + month (int) ... Month
-    + day (int) ... Day
-+ Response 200 (text/plain)
-
-        [Programmes][]
-
-
-## TV Schedule last day [/programmes/schedules/{epgid}/schedules/{day}] 
-List all programmes of a unique day
-### [GET]
-+ Parameters 
-    + epgid (int) ... ID of TV Channel.
-    + day (string) ... day 
-        + Values
-            + `yesterday`
-            + `today`
-            + `tommorow`
-+ Response 200 (text/plain)
-       
-        [Programmes][]
-
-## Programmes [/programmes/{id}]
-A single programme object
-### Get a programme [GET] 
-+ Parameters 
-    + id (int) ... Programme ID.
-    
-
-            
-    
-+ Response 200 (text/plain)
-       
-         [Programmes][]
-
-### Update a programme [POST]
-+ Parameters 
-    + id (int) ... Programme ID.
-    
-+ Response 200 (text/plain)
-       
-        Hello World !
-
-### Delete a programme [DELETE]
-
-+ Response 200 (text/plain)
-       
-        Hello World !
-    
-
-## Programmes [/programmes/progid={progid}]
-A single programme object
-### Get a programme [GET] 
-+ Parameters 
-    + progid (int) ... Programme ID.
-    
-+ Response 200 (text/plain)
-       
-        Hello World !
-
-## Programmes [/programmes/diffid={diffid}]
-A single programme object
-### Get a programme [GET] 
-+ Parameters 
-    + diffid (int) ... Programme ID.
-    
-+ Response 200 (text/plain)
-       
-        Hello World !
-
-## Programmes Seasons [/programmes/{id}/seasons]
-A single programme object
-### [GET] 
-+ Parameters 
-    + id (int) ... Programme ID.
-+ Response 200 (text/plain)
-       
-        Hello World !   
-
-## Programmes persons [/programmes/{id}/persons]
-List of Persons in Programme
-### [GET] 
-+ Parameters 
-    + id (int) ... Programme ID.
-+ Response 200 (text/plain)
-       
-        Hello World !   
-
-
-
-# Group Person
-## Persons [/persons]
-### List [GET] 
-
-+ Response 200 (text/plain)
-       
-        Hello World !
-
-### Create a person [POST]
-
-+ Response 200 (text/plain)
-       
-        Hello World !
-
-
-## Person [/persons/{id}]
-A single person object
-### Get [GET] 
-+ Parameters 
-    + id (int) ... person ID.
-    
-+ Response 200 (text/plain)
-       
-        Hello World !
-
-### Update [POST]
-
-+ Response 200 (text/plain)
-       
-        Hello World !
-
-### Delete [DELETE]
-
-+ Response 200 (text/plain)
-       
-        Hello World !
-
-
-# Group Video
-## videos [/videos/galaxy={gid}]
-### List [GET] 
-+ Parameters 
-    + gid (int) ... galaxy ID.
-List all universe
-+ Response 200 (text/plain)
-       
-        Hello World !
-
-## Video object [/videos/{id}]
-A single video object
-### Get [GET] 
-+ Parameters 
-    + id (int) ... video ID.
-    
-+ Response 200 (text/plain)
-       
-        Hello World !
-
-## Video listing [/videos/galaxy={gid}/selections/]
-Listing of video selection list
-
-__@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la Mise en forme
-
-### Get [GET] 
-+ Parameters 
-    + gid (int) ... Galaxy ID.
-
-+ Response 200 (text/plain)
-       
-        Hello World ! 
-
-## Video listing [/videos/galaxy={gid}/selections/{id}]
-Listing of video selection list, 
-
-__@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la Mise en forme
-
-### Get [GET] 
-+ Parameters 
-    + gid (int) ... Galaxy ID.
-    + id (int) ... Selection ID.
-
-+ Response 200 (text/plain)
-       
-        Hello World ! 
-
-## Video listing [/videos/u={uid}/r={rid}/c={cid}]
-Listing of video object, find by URC identifiers
-### Get [GET] 
-+ Parameters 
-    + uid (int) ... Universe ID.
-    + rid (int) ... Rubrique ID.
-    + cid (int) ... Category ID.
-
-    
-+ Response 200 (text/plain)
-       
-        Hello World !
-
+### Remove a Note [DELETE]
++ Response 204
