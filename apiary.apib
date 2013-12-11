@@ -147,19 +147,32 @@ Group all programmes related ressources
     + Body
     
             {
+                "id": "42",
+                "version":"3",
+                "created_at": "2014-04-14T02:15:15Z",
+                "updated_at": "2014-04-14T02:15:15Z",
+                "title": "Le pape est notre invité",
+                "subtitle" : "Le Grand Journal",
+                "baseline": "Texte d'accrorche",
+                "description": "Description",
+                "text": "Rita's ex-hubby, the crack addict, repeatedly raped her, knocked her around. Ever since then she's been completely uninterested in sex. That works for me! although a spare will do.Okay. Uh, is there something I can.. And I will. I can always see other people's problems more clearly than my own. Everyone hides who they are at least some of their time.Lightweight, uh... Harry Morgan, tonight's the night. It's going to happen again and again. Has to happen. Nice night. Miami is a great town. I'm drifting, but not to sleep, my father taught me one thing above all others; to be sure. And I am. Matt Chambers, Miami is your last stop. If God is in the details and if I believed in God, he's in this room with me. I just wish he had brought an extension cord.",
+
+                "category": {
+                },
+
                 "_links": {
                     "self": { "href": "/programmes/42" },
                     "persons": { "href": "/programmes/42/persons" },
-                    "
+                    "photos": { "href": "/programmes/42/photos" },
                     "diffusions": { "href": "/programmes/42/diffusions" },
                     "videos": { "href": "/programmes/42/videos" },
                     "versions": {"href":"/programmes/42/versions"},
+                    "news": {"href":"/programmes/42/news"},
+                    
                     "photos.id" : "http://media.canalplus.fr/{width}x{height}/{id}.{ext}"
                 },
-                "id": "42",
-                "version":"3",
-                "category": {
-                },
+
+                
                 
                 "tv": {
                     "progid": 1231,
@@ -169,7 +182,10 @@ Group all programmes related ressources
                 "movie": {
                     "lifecycle" : "theater",
                     "production_year" : "2012",
-                    "signaletique": "-18",
+                    "_links": {
+                        "characters": { "href": "/programmes/42/characters"},
+                        "awards": {"href":"/programmes/42/awards"},
+                    },
                 }
                 "photos": [{
                     "id": "legrandjournal_20131225",
@@ -179,11 +195,6 @@ Group all programmes related ressources
                     "id": "legrandjournal_20131225",
                     "alt": "Stromae au Grand Journal du 25/12/2013",
                 }]
-                "created_at": "2014-04-14T02:15:15Z",
-                "updated_at": "2014-04-14T02:15:15Z",
-                "title": "Description of Gist",
-                "description": "String contents",
-                "text": "Rita's ex-hubby, the crack addict, repeatedly raped her, knocked her around. Ever since then she's been completely uninterested in sex. That works for me! although a spare will do.Okay. Uh, is there something I can.. And I will. I can always see other people's problems more clearly than my own. Everyone hides who they are at least some of their time.Lightweight, uh... Harry Morgan, tonight's the night. It's going to happen again and again. Has to happen. Nice night. Miami is a great town. I'm drifting, but not to sleep, my father taught me one thing above all others; to be sure. And I am. Matt Chambers, Miami is your last stop. If God is in the details and if I believed in God, he's in this room with me. I just wish he had brought an extension cord.",
             }
 
 ### Retrieve a Message [GET]
@@ -303,6 +314,55 @@ List of Versions of a Programme
 
 # Group Person
 ## Persons [/persons]
++ Model (application/hal+json)
+    HAL+JSON representation of Programme Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
+
+    + Headers
+
+            Location : /persons
+
+    + Body
+    
+            {
+                "id": "42",
+                "version":"3",
+                "created_at": "2014-04-14T02:15:15Z",
+                "updated_at": "2014-04-14T02:15:15Z",
+                "fname" : "Brad",
+                "lname" : "Pitt",
+                "surname": "Brad Pitt",
+                "nationality": "American",
+                "birthday" : "",
+                "birthcity" :"",
+                "deathday" :"",
+                "biography":"",
+                "category": {
+                },
+                
+                "socialnetwork": {
+                    "twitter_account":"",
+                    "facebook_fanpage":"",
+                    "facebook_profilepage":"",
+                },
+                "_links": {
+                    "self": { "href": "/programmes/42" },
+                    "photos": { "href": "/programmes/42/photos" },
+                    "videos": { "href": "/programmes/42/videos" },
+                    "versions": {"href":"/programmes/42/versions"},
+                    "news": {"href":"/programmes/42/news"},
+                    "awards": {"href":"/programmes/42/awards"},
+                    "photos.id" : "http://media.canalplus.fr/{width}x{height}/{id}.{ext}"
+                },
+                "photos": [{
+                    "id": "legrandjournal_20131225",
+                    "alt": "Stromae au Grand Journal du 25/12/2013",
+                },
+                {
+                    "id": "legrandjournal_20131225",
+                    "alt": "Stromae au Grand Journal du 25/12/2013",
+                }]
+            }
+
 ### List [GET] 
 
 + Response 200 (text/plain)
