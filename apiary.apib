@@ -166,13 +166,9 @@ Group all programmes related ressources
                         { "href": "/persons/14", "title": "Vince Gilligan", "role": "director" },
                     ],
                         
-                    "characters": [
-                        { "href": "/characters/12", "title": "Walter White"},
-                        { "href": "/characters/13", "title": "Jesse Pinkman"},
-                    ],
                     "photos": [
-                        { "id": "braddpitt", title: "Met labo", original: "1024x760" },
-                        { "id": "braddpitt", title: "Walter White", original: "1024x760" },
+                        { "id": "breaking-bad-labo", title: "Met labo", original: "1024x760" },
+                        { "id": "walter-white", title: "Walter White", original: "1024x760" },
                     ],
                    
                     "diffusions": { "href": "/programmes/42/diffusions" },
@@ -251,19 +247,6 @@ List all programmes of a particular day
         [Programmes][]
 
 
-## TV Schedule last day [/programmes/schedules/{epgid}/{day}] 
-List all programmes diffused to the channel {epgid} of a unique day
-### [GET]
-+ Parameters 
-    + epgid (int) ... ID of TV Channel.
-    + day (string) ... day 
-        + Values
-            + `yesterday`
-            + `today`
-            + `tommorow`
-+ Response 200 (text/plain)
-       
-        [Programmes][]
 
 ## Programmes [/programmes/{id}]
 A single programme object
@@ -309,51 +292,6 @@ A single programme object
        
         Hello World !
 
-## Programmes Seasons [/programmes/{id}/seasons]
-A single programme object
-### [GET] 
-+ Parameters 
-    + id (int) ... Programme ID.
-+ Response 200 (text/plain)
-       
-        Hello World !   
-
-## Programmes Seasons [/programmes/{id}/episodes]
-A single programme object
-### [GET] 
-+ Parameters 
-    + id (int) ... Programme ID.
-+ Response 200 (text/plain)
-       
-        Hello World !   
-
-## Programmes persons [/programmes/{id}/characters]
-List of Characters in Programme
-### [GET] 
-+ Parameters 
-    + id (int) ... Programme ID.
-+ Response 200 (text/plain)
-       
-        Hello World !   
-
-
-## Programmes persons [/programmes/{id}/persons]
-List of Persons in Programme
-### [GET] 
-+ Parameters 
-    + id (int) ... Programme ID.
-+ Response 200 (text/plain)
-       
-        Hello World !   
-
-## Programmes persons [/programmes/{id}/versions]
-List of published versions of a Programme
-### [GET] 
-+ Parameters 
-    + id (int) ... Programme ID.
-+ Response 200 (text/plain)
-       
-        Hello World !   
 
 ## Programmes persons [/programmes/{id}/diffusions]
 List of Versions of a Programme
@@ -363,24 +301,6 @@ List of Versions of a Programme
 + Response 200 (text/plain)
        
         Hello World !   
-
-## Programmes persons [/programmes/{id}/videos]
-List of Versions of a Programme
-### [GET] 
-+ Parameters 
-    + id (int) ... Programme ID.
-+ Response 200 (text/plain)
-       
-        Hello World !   
-
-## Programmes persons [/programmes/{id}/articles]
-List of Articles linked to a Programme
-### [GET] 
-+ Parameters 
-    + id (int) ... Programme ID.
-+ Response 200 (text/plain)
-       
-        Hello World ! 
 
 
 # Group Person
@@ -410,11 +330,6 @@ List of Articles linked to a Programme
                 "category": {
                 },
                 
-                "socialnetwork": {
-                    "twitter_account":"",
-                    "facebook_fanpage":"",
-                    "facebook_profilepage":"",
-                },
                 "_links": {
                     "self": { "href": "/programmes/42" },
                     "photos": { "href": "/programmes/42/photos" },
@@ -423,15 +338,16 @@ List of Articles linked to a Programme
                     "articles": {"href":"/programmes/42/articles"},
                     "awards": {"href":"/programmes/42/awards"},
                     "photos.id" : "http://media.canalplus.fr/{width}x{height}/{id}.{ext}"
+                    "twitter_account": {href: "https://twitter.com/BradPittsPage"},
+                    "facebook_fanpage": {href: "https://www.facebook.com/Brad.Official.Page"},
+                    "facebook_profilepage":"",
+                    "photos": [
+                        { "id": "breaking-bad-labo", title: "Met labo", original: "1024x760" },
+                        { "id": "walter-white", title: "Walter White", original: "1024x760" },
+                        
+                    ],
+                    "_links.photos.id" : {"href": "http://media.canalplus.fr/{width}x{height}/{id}{?-SMART}.{ext}","templated": "true"},
                 },
-                "photos": [{
-                    "id": "legrandjournal_20131225",
-                    "alt": "Stromae au Grand Journal du 25/12/2013",
-                },
-                {
-                    "id": "legrandjournal_20131225",
-                    "alt": "Stromae au Grand Journal du 25/12/2013",
-                }]
             }
 
 ### List [GET] 
