@@ -32,8 +32,11 @@ Format accepted are :
 
 
 ## Entity & Link Expension
-You can add `include` paramater to API to expand an entity or a link inside the API. For example 
-> /programmes/13213?include=person,comments
+You can add `embedded` paramater to API to expand an entity or a link inside the API. For example 
+> /programmes/13213?embedded=person,comments
+
+add a reserved `_embedded` property inside response
+
 
 ## Relationsiphs
 ### To-Many Relationships
@@ -148,31 +151,57 @@ Group all programmes related ressources
                 "version":"3",
                 "created_at": "2014-04-14T02:15:15Z",
                 "updated_at": "2014-04-14T02:15:15Z",
-                "title": "Le pape est notre invité",
-                "subtitle" : "Le Grand Journal",
-                "baseline": "Texte d'accrorche",
+                "title": "Breaking Bad",
+                "subtitle" : "La chimie pour les toxicos",
+                "type" : "brand",
+                "baseline": "un professeur de chimie sur-qualifié et père de famille, qui, ayant appris qu'il est atteint d'un cancer du poumon à un stade avancé et pour assurer l'avenir financier de sa famille, sombre dans le crime en se lançant dans la fabrication et la vente de méthamphétamine, avec l'aide de l'un de ses anciens élèves, Jesse Pinkman",
                 "description": "Description",
                 "text": "Rita's ex-hubby, the crack addict, repeatedly raped her, knocked her around. Ever since then she's been completely uninterested in sex. That works for me! although a spare will do.Okay. Uh, is there something I can.. And I will. I can always see other people's problems more clearly than my own. Everyone hides who they are at least some of their time.Lightweight, uh... Harry Morgan, tonight's the night. It's going to happen again and again. Has to happen. Nice night. Miami is a great town. I'm drifting, but not to sleep, my father taught me one thing above all others; to be sure. And I am. Matt Chambers, Miami is your last stop. If God is in the details and if I believed in God, he's in this room with me. I just wish he had brought an extension cord.",
-
-                "category": {
-                },
-
+                
                 "_links": {
                     "self": { "href": "/programmes/42" },
-                    "persons": { "href": "/programmes/42/persons" },
-                    "photos": { "href": "/programmes/42/photos" },
+                    "persons": [
+                        { "href": "/persons/12", "title": "Bryan Cranston", "role": "actor" },
+                        { "href": "/persons/13", "title": "Aaron Paul", "role": "actor" },
+                        { "href": "/persons/14", "title": "Vince Gilligan", "role": "director" },
+                    ],
+                        
+                    "characters": [
+                        { "href": "/characters/12", "title": "Walter White"},
+                        { "href": "/characters/13", "title": "Jesse Pinkman"},
+                    ],
+                    "photos": [
+                        { "id": "braddpitt", title: "Met labo", original: "1024x760" },
+                        { "id": "braddpitt", title: "Walter White", original: "1024x760" },
+                    ],
+                   
                     "diffusions": { "href": "/programmes/42/diffusions" },
-                    "videos": { "href": "/programmes/42/videos" },
-                    "versions": {"href":"/programmes/42/versions"},
-                    "seasons": {"href":"/programmes/42/seasons"},
-                    "episodes": {"href":"/programmes/42/episodes"},
-                    "articles": {"href":"/programmes/42/articles"},
+                   
+                    "videos": [
+                        { "href": "/videos/free/12", title: "Bande annonce 1 VO" },
+                    ],
+                   
+                    "versions": [
+                        {"href":"/programmes/42/versions/1", "creator": "Guillaume Marchand", "created_at": "1977-04-22T06:00:00Z"},
+                    ],
                     
-                    "photos.id" : "http://media.canalplus.fr/{width}x{height}/{id}.{ext}"
+                    "brand": [
+                        {"href":"/programmes/50", "title" : "Breaking bad"},
+                    ],
+                    
+                    "seasons": [
+                        {"href":"/programmes/50", "title" : "Saison 1"},
+                        {"href":"/programmes/52", "title" : "Saison 2"},
+                    ],
+                    "episodes": [
+                        {"href":"/programmes/52", "title" : "Episode 3"},
+                    ],
+                    
+                    "articles": {"href":"/articles/22"},
+                    
+                    "_links.photos.id" : {"href": "http://media.canalplus.fr/{width}x{height}/{id}{?-SMART}.{ext}","templated": "true"},
                 },
 
-                
-                
                 "tv": {
                     "progid": 1231,
                     "numaff": 13245,
@@ -223,7 +252,7 @@ List all programmes of a particular day
 ### [GET]
 + Parameters 
     + epgid (int) ... ID of TV Channel.
-    @date = "2013-02-17" (string) ... ISO 8601 date to retrieve programmes of the day for.
+    + date = `today` (optional,string,`1977-04-22`) ... ISO 8601 date to retrieve programmes of the day for.
 
 + Response 200 (text/plain)
 
@@ -259,9 +288,7 @@ A single programme object
 + Parameters 
     + id (int) ... Programme ID.
     
-+ Response 200 (text/plain)
-       
-        Hello World !
++ Response 204
 
 ### Delete a programme [DELETE]
 
@@ -423,9 +450,7 @@ List of Articles linked to a Programme
 
 ### Create a person [POST]
 
-+ Response 200 (text/plain)
-       
-        Hello World !
++ Response 204
 
 
 ## Person [/persons/{id}]
@@ -440,15 +465,11 @@ A single person object
 
 ### Update [POST]
 
-+ Response 200 (text/plain)
-       
-        Hello World !
++ Response 204
 
 ### Delete [DELETE]
 
-+ Response 200 (text/plain)
-       
-        Hello World !
++ Response 204
 
 
 # Group Articles
@@ -497,9 +518,8 @@ A single person object
 
 ### Create a article [POST]
 
-+ Response 200 (text/plain)
++ Response 204
        
-        Hello World !
 
 
 ## Article [/articles/{id}]
@@ -514,20 +534,60 @@ A single article object
 
 ### Update [POST]
 
-+ Response 200 (text/plain)
-       
-        Hello World !
++ Response 204
 
 ### Delete [DELETE]
 
-+ Response 200 (text/plain)
-       
-        Hello World !
++ Response 204
 
 
 # Group Video
 ## Video object [/videos/free/{id}]
 A single video object for free video platform
+
++ Model (application/hal+json)
+    HAL+JSON representation of Programme Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
+
+    + Headers
+
+            Location : /videos/free
+
+    + Body
+    
+            {
+                "id" : 935214,
+                "title" : "",
+                "subtitle" : "",
+                "description" : "",
+                "author" : "canal+",
+                "embed" : "yes",
+                "tv": {
+                    "epgid" = 12,
+                    "numaff" = 132,
+                    "numprog" = 2453,
+                }
+                "category" : {
+                    "gid" : "cplus",
+                    "uid" : 12,
+                    "rid" : 14,
+                    "cid" : 1,
+                }
+                
+                "counters" : {
+                    "views" : 10000121,
+                    "fb_like" : 1336543,
+                    "tw_share" : 1234554,
+                }
+                "links" : {
+                    "self" : "/videos/free/4531132",
+                    "images" : "/videos/free/4531132/images",
+                    "streams" : "/videos/free/4531132/streams",
+                }
+                created_at : "1977-04-22T06:00:00Z",
+                updated_at : "1977-04-22T06:00:00Z",
+            }
+            
+
 ### Get [GET] 
 + Parameters 
     + id (int) ... video ID.
@@ -536,25 +596,15 @@ A single video object for free video platform
        
         Hello World !
 
-## Video Listing [/videos/free/galaxy={gid}]
-List all universe only for free video platform
-### List [GET] 
-+ Parameters 
-    + gid (int) ... ID of galaxy.
 
-    
-
-+ Response 200 (text/plain)
-       
-        Hello World !
-
-## Video listing [/videos/free/u={uid}/r={rid}/c={cid}]
-Listing of video object, find by URC identifiers
+## Video listing [/videos/free{/galaxy=gid}{/u=uid}{/r=rid}{/c=cid}]
+Listing of video category and video objects, find by GURC identifiers
 ### Get [GET] 
 + Parameters 
-    + uid (int) ... Universe ID.
-    + rid (int) ... Rubrique ID.
-    + cid (int) ... Category ID.
+    + gid (int) ... Galaxy ID.
+    + uid (optional,int) ... Universe ID.
+    + rid (optional,int) ... Rubrique ID.
+    + cid (optional,int) ... Category ID.
 
     
 + Response 200 (text/plain)
@@ -569,6 +619,7 @@ __@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la M
 ### Get [GET] 
 + Parameters 
     + gid (int) ... Galaxy ID.
+
 
 + Response 200 (text/plain)
        
