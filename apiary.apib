@@ -355,8 +355,8 @@ List of Versions of a Programme
        
         Hello World !   
 
-## Programmes persons [/programmes/{id}/news]
-List of Versions of a Programme
+## Programmes persons [/programmes/{id}/articles]
+List of Articles linked to a Programme
 ### [GET] 
 + Parameters 
     + id (int) ... Programme ID.
@@ -402,7 +402,7 @@ List of Versions of a Programme
                     "photos": { "href": "/programmes/42/photos" },
                     "videos": { "href": "/programmes/42/videos" },
                     "versions": {"href":"/programmes/42/versions"},
-                    "news": {"href":"/programmes/42/news"},
+                    "articles": {"href":"/programmes/42/articles"},
                     "awards": {"href":"/programmes/42/awards"},
                     "photos.id" : "http://media.canalplus.fr/{width}x{height}/{id}.{ext}"
                 },
@@ -527,17 +527,20 @@ A single article object
 
 
 # Group Video
-## videos [/videos/galaxy={gid}]
+## videos [/videos/free/galaxy={gid}]
+List all universe only for free video platform
 ### List [GET] 
 + Parameters 
-    + gid (int) ... galaxy ID.
-List all universe
+    + gid (int) ... ID of galaxy.
+
+    
+
 + Response 200 (text/plain)
        
         Hello World !
 
-## Video object [/videos/{id}]
-A single video object
+## Video object [/videos/free/{id}]
+A single video object for free video platform
 ### Get [GET] 
 + Parameters 
     + id (int) ... video ID.
@@ -546,7 +549,7 @@ A single video object
        
         Hello World !
 
-## Video listing [/videos/galaxy={gid}/selections/]
+## Video listing [/videos/free/galaxy={gid}/selections/]
 Listing of video selection list
 
 __@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la Mise en forme
@@ -559,7 +562,7 @@ __@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la M
        
         Hello World ! 
 
-## Video listing [/videos/galaxy={gid}/selections/{id}]
+## Video listing [/videos/free/galaxy={gid}/selections/{id}]
 Listing of video selection list, 
 
 __@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la Mise en forme ou on reprend
@@ -573,7 +576,7 @@ __@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la M
        
         Hello World ! 
 
-## Video listing [/videos/u={uid}/r={rid}/c={cid}]
+## Video listing [/videos/free/u={uid}/r={rid}/c={cid}]
 Listing of video object, find by URC identifiers
 ### Get [GET] 
 + Parameters 
