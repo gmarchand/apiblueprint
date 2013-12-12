@@ -218,14 +218,13 @@ List of all epgids
         Hello World !
 
 
-## TV Schedule by day [/programmes/schedules/{epgid}/{year}/{month}/{day}] 
+## TV Schedule by day [/programmes/schedules/{epgid}{/date}] 
 List all programmes of a particular day
 ### [GET]
 + Parameters 
     + epgid (int) ... ID of TV Channel.
-    + year (int) ... Year
-    + month (int) ... Month
-    + day (int) ... Day
+    @date = "2013-02-17" (string) ... ISO 8601 date to retrieve programmes of the day for.
+
 + Response 200 (text/plain)
 
         [Programmes][]
@@ -527,18 +526,6 @@ A single article object
 
 
 # Group Video
-## videos [/videos/free/galaxy={gid}]
-List all universe only for free video platform
-### List [GET] 
-+ Parameters 
-    + gid (int) ... ID of galaxy.
-
-    
-
-+ Response 200 (text/plain)
-       
-        Hello World !
-
 ## Video object [/videos/free/{id}]
 A single video object for free video platform
 ### Get [GET] 
@@ -549,32 +536,17 @@ A single video object for free video platform
        
         Hello World !
 
-## Video listing [/videos/free/galaxy={gid}/selections/]
-Listing of video selection list
-
-__@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la Mise en forme
-
-### Get [GET] 
+## Video Listing [/videos/free/galaxy={gid}]
+List all universe only for free video platform
+### List [GET] 
 + Parameters 
-    + gid (int) ... Galaxy ID.
+    + gid (int) ... ID of galaxy.
+
+    
 
 + Response 200 (text/plain)
        
-        Hello World ! 
-
-## Video listing [/videos/free/galaxy={gid}/selections/{id}]
-Listing of video selection list, 
-
-__@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la Mise en forme ou on reprend
-
-### Get [GET] 
-+ Parameters 
-    + gid (int) ... Galaxy ID.
-    + id (int) ... Selection ID.
-
-+ Response 200 (text/plain)
-       
-        Hello World ! 
+        Hello World !
 
 ## Video listing [/videos/free/u={uid}/r={rid}/c={cid}]
 Listing of video object, find by URC identifiers
@@ -588,3 +560,32 @@ Listing of video object, find by URC identifiers
 + Response 200 (text/plain)
        
         Hello World !
+
+## Video Collection Listing [/videos/free/galaxy={gid}/selections/]
+Collection of video selection list
+
+__@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la Mise en forme
+
+### Get [GET] 
++ Parameters 
+    + gid (int) ... Galaxy ID.
+
++ Response 200 (text/plain)
+       
+        Hello World ! 
+
+## Video Collection [/videos/free/galaxy={gid}/selections/{id}]
+Listing of video selection list, 
+
+__@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la Mise en forme ou on reprend
+
+### Get [GET] 
++ Parameters 
+    + gid (int) ... Galaxy ID.
+    + id (int) ... Selection ID.
+
++ Response 200 (text/plain)
+       
+        Hello World ! 
+
+
