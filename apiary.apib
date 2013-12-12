@@ -116,8 +116,8 @@ HAL links.
 
 # Group Category
 
-## Programme category [/category/{sub1}/{sub2}] 
-List all programmes of a particular day
+## Content Category [/category/{sub1}/{sub2}/{sub3}] 
+Categorization of content
 ### [GET]
 + Parameters 
     + sub1 (string) ... xxx
@@ -128,11 +128,8 @@ List all programmes of a particular day
         Hello World!
 
 
-
-
 # Group Programme
 Group all programmes related ressources
-
 
 
 ## Programme [/programmes]
@@ -167,6 +164,8 @@ Group all programmes related ressources
                     "diffusions": { "href": "/programmes/42/diffusions" },
                     "videos": { "href": "/programmes/42/videos" },
                     "versions": {"href":"/programmes/42/versions"},
+                    "seasons": {"href":"/programmes/42/seasons"},
+                    "episodes": {"href":"/programmes/42/episodes"},
                     "news": {"href":"/programmes/42/news"},
                     
                     "photos.id" : "http://media.canalplus.fr/{width}x{height}/{id}.{ext}"
@@ -208,7 +207,17 @@ At this point we will utilize our `Programmes` resource model and reference it i
 ### Create a programme [POST]
 
 + Response 204 
+
+## TV Schedule by day [/programmes/schedules/]
+List of all epgids
+
+### [GET]
+
++ Response 200 (text/plain)
        
+        Hello World !
+
+
 ## TV Schedule by day [/programmes/schedules/{epgid}/{year}/{month}/{day}] 
 List all programmes of a particular day
 ### [GET]
@@ -222,8 +231,8 @@ List all programmes of a particular day
         [Programmes][]
 
 
-## TV Schedule last day [/programmes/schedules/{epgid}/schedules/{day}] 
-List all programmes of a unique day
+## TV Schedule last day [/programmes/schedules/{epgid}/{day}] 
+List all programmes diffused to the channel {epgid} of a unique day
 ### [GET]
 + Parameters 
     + epgid (int) ... ID of TV Channel.
@@ -243,8 +252,6 @@ A single programme object
     + id (int) ... Programme ID.
     
 
-            
-    
 + Response 200 (text/plain)
        
          [Programmes][]
@@ -293,6 +300,25 @@ A single programme object
        
         Hello World !   
 
+## Programmes Seasons [/programmes/{id}/episodes]
+A single programme object
+### [GET] 
++ Parameters 
+    + id (int) ... Programme ID.
++ Response 200 (text/plain)
+       
+        Hello World !   
+
+## Programmes persons [/programmes/{id}/characters]
+List of Characters in Programme
+### [GET] 
++ Parameters 
+    + id (int) ... Programme ID.
++ Response 200 (text/plain)
+       
+        Hello World !   
+
+
 ## Programmes persons [/programmes/{id}/persons]
 List of Persons in Programme
 ### [GET] 
@@ -303,6 +329,15 @@ List of Persons in Programme
         Hello World !   
 
 ## Programmes persons [/programmes/{id}/versions]
+List of published versions of a Programme
+### [GET] 
++ Parameters 
+    + id (int) ... Programme ID.
++ Response 200 (text/plain)
+       
+        Hello World !   
+
+## Programmes persons [/programmes/{id}/diffusions]
 List of Versions of a Programme
 ### [GET] 
 + Parameters 
@@ -310,6 +345,24 @@ List of Versions of a Programme
 + Response 200 (text/plain)
        
         Hello World !   
+
+## Programmes persons [/programmes/{id}/videos]
+List of Versions of a Programme
+### [GET] 
++ Parameters 
+    + id (int) ... Programme ID.
++ Response 200 (text/plain)
+       
+        Hello World !   
+
+## Programmes persons [/programmes/{id}/news]
+List of Versions of a Programme
+### [GET] 
++ Parameters 
+    + id (int) ... Programme ID.
++ Response 200 (text/plain)
+       
+        Hello World ! 
 
 
 # Group Person
@@ -473,7 +526,6 @@ A single article object
         Hello World !
 
 
-
 # Group Video
 ## videos [/videos/galaxy={gid}]
 ### List [GET] 
@@ -510,7 +562,7 @@ __@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la M
 ## Video listing [/videos/galaxy={gid}/selections/{id}]
 Listing of video selection list, 
 
-__@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la Mise en forme
+__@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la Mise en forme ou on reprend
 
 ### Get [GET] 
 + Parameters 
