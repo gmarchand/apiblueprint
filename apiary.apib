@@ -194,6 +194,16 @@ Programme Ontology covers brands, series (seasons) and episodes.
                     "self": {
                         "href": "/programmes/42"
                     },
+                    "category": [
+                        { 
+                            "href": "/category/12",
+                            "title": "series"
+                        },
+                        {
+                            "href": "/category/15",
+                            "title": "drama"
+                        }
+                    ]
                     "persons": [
                         {
                             "href": "/persons/12",
@@ -283,7 +293,7 @@ Programme Ontology covers brands, series (seasons) and episodes.
                     "production_year": "2012",
                     "_links": {
                         "characters": {
-                            "href": "/programmes/42/characters"
+                            "href": "/characters/12"
                         },
                         "awards": {
                             "href": "/programmes/42/awards"
@@ -488,23 +498,22 @@ A single person object
                 "version": "3",
                 "created_at": "2014-04-14T02:15:15Z",
                 "updated_at": "2014-04-14T02:15:15Z",
-                "category": {
-                    "genre": ""
-                },
                 "_links": {
                     "self": {
                         "href": "/programmes/42"
                     },
-                    "photos": {
-                        "href": "/programmes/42/photos"
-                    },
                     "videos": {
-                        "href": "/programmes/42/videos"
+                        "href": "/programmes/videos/12"
                     },
-                    "versions": {
-                        "href": "/programmes/42/versions"
-                    },
+                    "versions": [
+                        {
+                            "href": "/articles/42/versions/1",
+                            "creator": "Guillaume Marchand",
+                            "created_at": "1977-04-22T06:00:00Z"
+                        }
+                    ],
                     "photos.id": "http://media.canalplus.fr/{width}x{height}/{id}.{ext}"
+                    
                 },
                 "photos": [
                     {
@@ -583,7 +592,7 @@ A single video object for free video platform
                 "links": {
                     "self": "/videos/free/4531132",
                     "images": "/videos/free/4531132/images",
-                    "category": {
+                    "urc": {
                         "galaxy": {
                             "href": "/videos/free/gid=12",
                             "title": "cplus"
