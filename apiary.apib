@@ -5,14 +5,16 @@ HOST: https://api-data.xxx.com
 
 # XXX Data API
 XXX Data API is the web service platform of XXX GROUP
+
 Where applicable this API uses the [HAL+JSON](https://github.com/mikekelly/hal_specification/blob/master/hal_specification.md) media-type to represent resources states and affordances.
+
 Requests with a message-body are using plain JSON to set or update resource states.
+
+All dates are representated by [ISO_8601](http://en.wikipedia.org/wiki/ISO_8601)
 
 
 ## Authentication
 Currently the API does not provide authenticated access.
-
-## Media Types
 
 
 ## Error States
@@ -119,20 +121,51 @@ HAL links.
 
 # Group Category
 
-## Content Category [/category/{sub1}/{sub2}/{sub3}] 
+## Content Category [/category/{id}] 
 Categorization of content
+
++ Model (application/hal+json)
+    HAL+JSON representation of Category Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
+
+    + Headers
+
+            Location : /category
+
+    + Body
+    
+            {
+            "id": 42,
+            "title": "movie",
+            "description": "bla bla bla",
+            
+            "_links": {
+                    "self": { "href": "/category/42" },
+                    "parent": [
+                        { "href": "/category/12", "title": "genre"},
+                    ],
+                    "child" : [
+                    { "href": "/category/52", "title": "drama"},
+                    ],
+                    }
+            }
+
+
 ### [GET]
 + Parameters 
-    + sub1 (string) ... xxx
-    + sub2 (string) ... xxx
+    + id (int) ... Category Id of a content
 
 + Response 200 (text/plain)
 
-        Hello World!
+    [Content Category][]
 
 
 # Group Programme
 Group all programmes related ressources
+
+Programme Model is bases on [BBC Programme Ontology](http://www.bbc.co.uk/ontologies/programmes/2009-09-07.shtml)
+
+Programme Ontology covers brands, series (seasons) and episodes.
+
 
 
 ## Programme [/programmes]
@@ -148,68 +181,114 @@ Group all programmes related ressources
     
             {
                 "id": "42",
-                "version":"3",
+                "version": "3",
                 "created_at": "2014-04-14T02:15:15Z",
                 "updated_at": "2014-04-14T02:15:15Z",
                 "title": "Breaking Bad",
-                "subtitle" : "La chimie pour les toxicos",
-                "type" : "brand",
+                "subtitle": "La chimie pour les toxicos",
+                "type": "brand",
                 "baseline": "un professeur de chimie sur-qualifié et père de famille, qui, ayant appris qu'il est atteint d'un cancer du poumon à un stade avancé et pour assurer l'avenir financier de sa famille, sombre dans le crime en se lançant dans la fabrication et la vente de méthamphétamine, avec l'aide de l'un de ses anciens élèves, Jesse Pinkman",
                 "description": "Description",
                 "text": "Rita's ex-hubby, the crack addict, repeatedly raped her, knocked her around. Ever since then she's been completely uninterested in sex. That works for me! although a spare will do.Okay. Uh, is there something I can.. And I will. I can always see other people's problems more clearly than my own. Everyone hides who they are at least some of their time.Lightweight, uh... Harry Morgan, tonight's the night. It's going to happen again and again. Has to happen. Nice night. Miami is a great town. I'm drifting, but not to sleep, my father taught me one thing above all others; to be sure. And I am. Matt Chambers, Miami is your last stop. If God is in the details and if I believed in God, he's in this room with me. I just wish he had brought an extension cord.",
-                
                 "_links": {
-                    "self": { "href": "/programmes/42" },
+                    "self": {
+                        "href": "/programmes/42"
+                    },
                     "persons": [
-                        { "href": "/persons/12", "title": "Bryan Cranston", "role": "actor" },
-                        { "href": "/persons/13", "title": "Aaron Paul", "role": "actor" },
-                        { "href": "/persons/14", "title": "Vince Gilligan", "role": "director" },
+                        {
+                            "href": "/persons/12",
+                            "title": "Bryan Cranston",
+                            "role": "actor"
+                        },
+                        {
+                            "href": "/persons/13",
+                            "title": "Aaron Paul",
+                            "role": "actor"
+                        },
+                        {
+                            "href": "/persons/14",
+                            "title": "Vince Gilligan",
+                            "role": "director"
+                        }
                     ],
-                        
                     "photos": [
-                        { "id": "breaking-bad-labo", title: "Met labo", original: "1024x760" },
-                        { "id": "walter-white", title: "Walter White", original: "1024x760" },
+                        {
+                            "id": "breaking-bad-labo",
+                            "title": "Met labo",
+                            "original": "1024x760"
+                        },
+                        {
+                            "id": "walter-white",
+                            "title": "Walter White",
+                            "original": "1024x760"
+                        }
                     ],
-                   
-                    "diffusions": { "href": "/programmes/42/diffusions" },
-                   
                     "videos": [
-                        { "href": "/videos/free/12", title: "Bande annonce 1 VO" },
+                        {
+                            "href": "/videos/free/12",
+                            "title": "Bande annonce 1 VO"
+                        }
                     ],
-                   
                     "versions": [
-                        {"href":"/programmes/42/versions/1", "creator": "Guillaume Marchand", "created_at": "1977-04-22T06:00:00Z"},
+                        {
+                            "href": "/programmes/42/versions/1",
+                            "creator": "Guillaume Marchand",
+                            "created_at": "1977-04-22T06:00:00Z"
+                        }
                     ],
-                    
                     "brand": [
-                        {"href":"/programmes/50", "title" : "Breaking bad"},
+                        {
+                            "href": "/programmes/50",
+                            "title": "Breaking bad"
+                        }
                     ],
-                    
                     "seasons": [
-                        {"href":"/programmes/50", "title" : "Saison 1"},
-                        {"href":"/programmes/52", "title" : "Saison 2"},
+                        {
+                            "href": "/programmes/50",
+                            "title": "Saison 1"
+                        },
+                        {
+                            "href": "/programmes/52",
+                            "title": "Saison 2"
+                        }
                     ],
                     "episodes": [
-                        {"href":"/programmes/52", "title" : "Episode 3"},
+                        {
+                            "href": "/programmes/52",
+                            "title": "Episode 3"
+                        }
                     ],
-                    
-                    "articles": {"href":"/articles/22"},
-                    
-                    "_links.photos.id" : {"href": "http://media.canalplus.fr/{width}x{height}/{id}{?-SMART}.{ext}","templated": "true"},
+                    "articles": {
+                        "href": "/articles/22"
+                    },
+                    "_links.photos.id": {
+                        "href": "http://media.canalplus.fr/{width}x{height}/{id}{?-SMART}.{ext}",
+                        "templated": "true"
+                    }
                 },
-
                 "tv": {
                     "progid": 1231,
                     "numaff": 13245,
                     "numprog": 12345,
+                    "diffusion": [
+                        {
+                            "epgid": 12,
+                            "start": "1977-04-22T06:00:00Z",
+                            "end": "1977-04-22T06:00:00Z"
+                        }
+                    ]
                 },
                 "movie": {
-                    "lifecycle" : "theater",
-                    "production_year" : "2012",
+                    "lifecycle": "theater",
+                    "production_year": "2012",
                     "_links": {
-                        "characters": { "href": "/programmes/42/characters"},
-                        "awards": {"href":"/programmes/42/awards"},
-                    },
+                        "characters": {
+                            "href": "/programmes/42/characters"
+                        },
+                        "awards": {
+                            "href": "/programmes/42/awards"
+                        }
+                    }
                 }
             }
 
@@ -244,7 +323,7 @@ List all programmes of a particular day
 
 + Response 200 (text/plain)
 
-        [Programmes][]
+    [Programme][]
 
 
 
@@ -257,7 +336,7 @@ A single programme object
 
 + Response 200 (text/plain)
        
-         [Programmes][]
+         [Programme][]
 
 ### Update a programme [POST]
 + Parameters 
@@ -267,10 +346,8 @@ A single programme object
 
 ### Delete a programme [DELETE]
 
-+ Response 200 (text/plain)
++ Response 204
        
-        Hello World !
-    
 
 ## Programmes [/programmes/progid={progid}]
 A single programme object
@@ -280,7 +357,7 @@ A single programme object
     
 + Response 200 (text/plain)
        
-        Hello World !
+    [Programme][]
 
 ## Programmes [/programmes/diffid={diffid}]
 A single programme object
@@ -290,21 +367,11 @@ A single programme object
     
 + Response 200 (text/plain)
        
-        Hello World !
-
-
-## Programmes persons [/programmes/{id}/diffusions]
-List of Versions of a Programme
-### [GET] 
-+ Parameters 
-    + id (int) ... Programme ID.
-+ Response 200 (text/plain)
-       
-        Hello World !   
+     [Programme][]
 
 
 # Group Person
-## Persons [/persons]
+## Person [/persons]
 + Model (application/hal+json)
     HAL+JSON representation of Programme Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
 
@@ -316,47 +383,74 @@ List of Versions of a Programme
     
             {
                 "id": "42",
-                "version":"3",
+                "version": "3",
                 "created_at": "2014-04-14T02:15:15Z",
                 "updated_at": "2014-04-14T02:15:15Z",
-                "fname" : "Brad",
-                "lname" : "Pitt",
+                "fname": "Brad",
+                "lname": "Pitt",
                 "surname": "Brad Pitt",
                 "nationality": "American",
-                "birthday" : "",
-                "birthcity" :"",
-                "deathday" :"",
-                "biography":"",
-                "category": {
-                },
-                
+                "birthday": "",
+                "birthcity": "",
+                "deathday": "",
+                "biography": "",
+                "category": {},
                 "_links": {
-                    "self": { "href": "/persons/42" },
-                    "videos": { "href": "/videos/42/" },
-                    "articles": {"href":"/articles/42/articles"},
-                    "awards": {"href":"/programmes/42/awards"},
-                    
-                    "twitter_account": {href: "https://twitter.com/BradPittsPage"},
-                    "facebook_fanpage": {href: "https://www.facebook.com/Brad.Official.Page"},
-                    "facebook_profilepage":"",
-                    "photos": [
-                        { "id": "breaking-bad-labo", title: "Met labo", original: "1024x760" },
-                        { "id": "walter-white", title: "Walter White", original: "1024x760" },
-                        
+                    "self": {
+                        "href": "/persons/42"
+                    },
+                    "videos": {
+                        "href": "/videos/42/"
+                    },
+                    "articles": {
+                        "href": "/articles/42/articles"
+                    },
+                    "awards": {
+                        "href": "/programmes/42/awards"
+                    },
+                    "social": [
+                        {
+                            "id": "twitter_account",
+                            "href": "https://twitter.com/BradPittsPage"
+                        },
+                        {
+                            "id": "facebook_fanpage",
+                            "href": "https://www.facebook.com/Brad.Official.Page"
+                        },
+                        {
+                            "id": "facebook_profilepage",
+                            "href": "https://www.facebook.com/Brad.Official.Page"
+                        }
                     ],
-                    "_links.photos.id" : {"href": "http://media.canalplus.fr/{width}x{height}/{id}{?-SMART}.{ext}","templated": "true"},
-                },
+                    "photos": [
+                        {
+                            "id": "breaking-bad-labo",
+                            "title": "Met labo",
+                            "original": "1024x760"
+                        },
+                        {
+                            "id": "walter-white",
+                            "title": "Walter White",
+                            "original": "1024x760"
+                        }
+                    ],
+                    "_links.photos.id": {
+                        "href": "http://media.canalplus.fr/{width}x{height}/{id}{?-SMART}.{ext}",
+                        "templated": "true"
+                    }
+                }
             }
 
 ### List [GET] 
 
 + Response 200 (text/plain)
        
-        Hello World !
+    [Person][]
 
 ### Create a person [POST]
 
-+ Response 204
++ Response 200 (text/plain)
+    [Person][]
 
 
 ## Person [/persons/{id}]
@@ -367,7 +461,7 @@ A single person object
     
 + Response 200 (text/plain)
        
-        Hello World !
+    [Person][]
 
 ### Update [POST]
 
@@ -379,7 +473,7 @@ A single person object
 
 
 # Group Articles
-## Articles [/articles]
+## Article [/articles]
 + Model (application/hal+json)
     HAL+JSON representation of Article Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
 
@@ -391,42 +485,50 @@ A single person object
     
             {
                 "id": "42",
-                "version":"3",
+                "version": "3",
                 "created_at": "2014-04-14T02:15:15Z",
                 "updated_at": "2014-04-14T02:15:15Z",
                 "category": {
-                    "genre": "",
+                    "genre": ""
                 },
-
-
                 "_links": {
-                    "self": { "href": "/programmes/42" },
-                    "photos": { "href": "/programmes/42/photos" },
-                    "videos": { "href": "/programmes/42/videos" },
-                    "versions": {"href":"/programmes/42/versions"},
-                    "photos.id" : "http://media.canalplus.fr/{width}x{height}/{id}.{ext}"
+                    "self": {
+                        "href": "/programmes/42"
+                    },
+                    "photos": {
+                        "href": "/programmes/42/photos"
+                    },
+                    "videos": {
+                        "href": "/programmes/42/videos"
+                    },
+                    "versions": {
+                        "href": "/programmes/42/versions"
+                    },
+                    "photos.id": "http://media.canalplus.fr/{width}x{height}/{id}.{ext}"
                 },
-                "photos": [{
-                    "id": "legrandjournal_20131225",
-                    "alt": "Stromae au Grand Journal du 25/12/2013",
-                },
-                {
-                    "id": "legrandjournal_20131225",
-                    "alt": "Stromae au Grand Journal du 25/12/2013",
-                }]
+                "photos": [
+                    {
+                        "id": "legrandjournal_20131225",
+                        "alt": "Stromae au Grand Journal du 25/12/2013"
+                    },
+                    {
+                        "id": "legrandjournal_20131225",
+                        "alt": "Stromae au Grand Journal du 25/12/2013"
+                    }
+                ]
             }
 
 ### List [GET] 
 
 + Response 200 (text/plain)
        
-        Hello World !
+    [Article][]
 
 ### Create a article [POST]
 
-+ Response 204
-       
-
++ Response 200 (text/plain)
+    
+    [Article][]
 
 ## Article [/articles/{id}]
 A single article object
@@ -436,11 +538,13 @@ A single article object
     
 + Response 200 (text/plain)
        
-        Hello World !
+    [Article][]
 
 ### Update [POST]
 
-+ Response 204
++ Response 200 (text/plain)
+    
+    [Article][]
 
 ### Delete [DELETE]
 
@@ -448,7 +552,7 @@ A single article object
 
 
 # Group Video
-## Video object [/videos/free/{id}]
+## Video [/videos/free/{id}]
 A single video object for free video platform
 
 + Model (application/hal+json)
@@ -461,36 +565,45 @@ A single video object for free video platform
     + Body
     
             {
-                "id" : 935214,
-                "title" : "",
-                "subtitle" : "",
-                "description" : "",
-                "author" : "canal+",
-                "embed" : "yes",
+                "id": 935214,
+                "title": "",
+                "subtitle": "",
+                "description": "",
+                "author": "canal+",
+                "embed": "yes",
                 "tv": {
-                    "epgid" = 12,
-                    "numaff" = 132,
-                    "numprog" = 2453,
-                }
-                "category" : {
-                    "gid" : "cplus",
-                    "uid" : 12,
-                    "rid" : 14,
-                    "cid" : 1,
-                }
-                
-                "counters" : {
-                    "views" : 10000121,
-                    "fb_like" : 1336543,
-                    "tw_share" : 1234554,
-                }
-                "links" : {
-                    "self" : "/videos/free/4531132",
-                    "images" : "/videos/free/4531132/images",
-                    "streams" : "/videos/free/4531132/streams",
-                }
-                created_at : "1977-04-22T06:00:00Z",
-                updated_at : "1977-04-22T06:00:00Z",
+                    "numaff": 132,
+                    "numprog": 2453
+                },
+                "counters": {
+                    "views": 10000121,
+                    "fb_like": 1336543,
+                    "tw_share": 1234554
+                },
+                "links": {
+                    "self": "/videos/free/4531132",
+                    "images": "/videos/free/4531132/images",
+                    "category": {
+                        "galaxy": {
+                            "href": "/videos/free/gid=12",
+                            "title": "cplus"
+                        },
+                        "universe": {
+                            "href": "/videos/free/gid=12/uid=13",
+                            "title": "series"
+                        },
+                        "rubrication": {
+                            "href": "/videos/free/gid=12/uid=13/rid=1",
+                            "title": "homeland"
+                        },
+                        "category": {
+                            "href": "/videos/free/gid=12/uid=13/rid=1/cid=2",
+                            "title": "ba"
+                        }
+                    }
+                },
+                "created_at": "1977-04-22T06:00:00Z",
+                "updated_at": "1977-04-22T06:00:00Z"
             }
             
 
@@ -515,7 +628,7 @@ Listing of video category and video objects, find by GURC identifiers
     
 + Response 200 (text/plain)
        
-        Hello World !
+    [Video][]
 
 ## Video Collection Listing [/videos/free/galaxy={gid}/selections/]
 Collection of video selection list
@@ -529,7 +642,7 @@ __@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la M
 
 + Response 200 (text/plain)
        
-        Hello World ! 
+    [Video][]
 
 ## Video Collection [/videos/free/galaxy={gid}/selections/{id}]
 Listing of video selection list, 
@@ -543,6 +656,6 @@ __@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la M
 
 + Response 200 (text/plain)
        
-        Hello World ! 
+     [Video][] 
 
 
