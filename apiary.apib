@@ -404,7 +404,6 @@ A single programme object
                 "birthcity": "",
                 "deathday": "",
                 "biography": "",
-                "category": {},
                 "_links": {
                     "self": {
                         "href": "/persons/42"
@@ -476,6 +475,84 @@ A single person object
 ### Update [POST]
 
 + Response 204
+
+### Delete [DELETE]
+
++ Response 204
+
+## Character [/characters/{id}]
+A single character object
+
++ Model (application/hal+json)
+    HAL+JSON representation of Programme Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
+
+    + Headers
+
+            Location : /characters
+
+    + Body
+    
+            {
+                "id": "42",
+                "version": "3",
+                "created_at": "2014-04-14T02:15:15Z",
+                "updated_at": "2014-04-14T02:15:15Z",
+                "fname": "Walter",
+                "lname": "Walt",
+                "description" : "Walter White a étudié à l'université California Institute of Technology avec Elliott Schwartz dans le domaine de la cristallographie1. 2. En 1985, les recherches de Walt concernant la radiographie contribuent à un projet qui reçoit le prix Nobel de chimie. Il cofonde par la suite la compagnie « Gray Matter Technologies » avec son ami Elliott Schwartz. Walter quitte ensuite son assistante de laboratoire, Gretchen. pendant les vacances avec sa famille, laissant tout derrière, son assistante et ses recherches. Gretchen se marie avec Elliott, et Gray Matter devient une entreprise couronnée de succès grâce aux recherches de Walt. Walter estime secrètement que son travail lui1 a été volé et blâme amèrement Elliott et Gretchen pour son sort.",
+                "_links": {
+                    "self": {
+                        "href": "/characters/42"
+                    },
+                    "videos": {
+                        "href": "/videos/42"
+                    },
+                    "social": [
+                        {
+                            "id": "twitter_account",
+                            "href": "https://twitter.com/WalterWhite"
+                        },
+                        {
+                            "id": "facebook_fanpage",
+                            "href": "https://www.facebook.com/walterwhitepage"
+                        },
+                        {
+                            "id": "facebook_profilepage",
+                            "href": "https://www.facebook.com/walterwite"
+                        }
+                    ],
+                    "photos": [
+                        {
+                            "id": "breaking-bad-labo",
+                            "title": "Met labo",
+                            "original": "1024x760"
+                        },
+                        {
+                            "id": "walter-white",
+                            "title": "Walter White",
+                            "original": "1024x760"
+                        }
+                    ],
+                    "_links.photos.id": {
+                        "href": "http://media.canalplus.fr/{width}x{height}/{id}{?-SMART}.{ext}",
+                        "templated": "true"
+                    }
+                }
+            }
+
+### Get [GET] 
++ Parameters 
+    + id (int) ... character ID.
+    
++ Response 200 (application/hal+json)
+       
+    [Character][]
+
+### Update [POST]
+
++ Response 200 (application/hal+json)
+       
+    [Character][]
 
 ### Delete [DELETE]
 
