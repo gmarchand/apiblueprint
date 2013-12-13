@@ -121,8 +121,7 @@ HAL links.
 
 # Group Category
 
-## Content Category [/category/{id}] 
-Categorization of content
+## Content Category [/category/]
 
 + Model (application/hal+json)
     HAL+JSON representation of Category Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
@@ -150,6 +149,20 @@ Categorization of content
             }
 
 
+### Create a category [POST]
+
++ Response 200 (application/hal+json)
+
+    [Content Category][] 
+    
+
+## Content Category [/category/{id}] 
+Categorization of content
+
+Contents are categorized by theme, type and tags.
+
+
+
 ### [GET]
 + Parameters 
     + id (int) ... Category Id of a content
@@ -158,6 +171,18 @@ Categorization of content
 
     [Content Category][]
 
+### Update a programme [POST]
++ Parameters 
+    + id (int) ... Category ID.
+    
++ Response 200 (application/hal+json)
+
+    [Content Category][]
+
+### Delete a programme [DELETE]
+
++ Response 204
+
 
 # Group Programme
 Group all programmes related ressources
@@ -165,7 +190,6 @@ Group all programmes related ressources
 Programme Model is bases on [BBC Programme Ontology](http://www.bbc.co.uk/ontologies/programmes/2009-09-07.shtml)
 
 Programme Ontology covers brands, series (seasons) and episodes.
-
 
 
 ## Programme [/programmes]
@@ -190,6 +214,7 @@ Programme Ontology covers brands, series (seasons) and episodes.
                 "baseline": "un professeur de chimie sur-qualifié et père de famille, qui, ayant appris qu'il est atteint d'un cancer du poumon à un stade avancé et pour assurer l'avenir financier de sa famille, sombre dans le crime en se lançant dans la fabrication et la vente de méthamphétamine, avec l'aide de l'un de ses anciens élèves, Jesse Pinkman",
                 "description": "Description",
                 "text": "Rita's ex-hubby, the crack addict, repeatedly raped her, knocked her around. Ever since then she's been completely uninterested in sex. That works for me! although a spare will do.Okay. Uh, is there something I can.. And I will. I can always see other people's problems more clearly than my own. Everyone hides who they are at least some of their time.Lightweight, uh... Harry Morgan, tonight's the night. It's going to happen again and again. Has to happen. Nice night. Miami is a great town. I'm drifting, but not to sleep, my father taught me one thing above all others; to be sure. And I am. Matt Chambers, Miami is your last stop. If God is in the details and if I believed in God, he's in this room with me. I just wish he had brought an extension cord.",
+
                 "_links": {
                     "self": {
                         "href": "/programmes/42"
@@ -203,7 +228,7 @@ Programme Ontology covers brands, series (seasons) and episodes.
                             "href": "/category/15",
                             "title": "drama"
                         }
-                    ]
+                    ],
                     "persons": [
                         {
                             "href": "/persons/12",
@@ -221,14 +246,16 @@ Programme Ontology covers brands, series (seasons) and episodes.
                             "role": "director"
                         }
                     ],
-                    "photos": [
+                    "images": [
                         {
-                            "id": "breaking-bad-labo",
+                            "href": "/ressources/images/12",
+                            "slug": "breaking-bad-labo",
                             "title": "Met labo",
                             "original": "1024x760"
                         },
                         {
-                            "id": "walter-white",
+                            "href": "/ressources/images/12",                        
+                            "slug": "walter-white",
                             "title": "Walter White",
                             "original": "1024x760"
                         }
@@ -271,7 +298,7 @@ Programme Ontology covers brands, series (seasons) and episodes.
                     "articles": {
                         "href": "/articles/22"
                     },
-                    "_links.photos.id": {
+                    "_links.images.slug": {
                         "href": "http://media.canalplus.fr/{width}x{height}/{id}{?-SMART}.{ext}",
                         "templated": "true"
                     }
@@ -293,7 +320,7 @@ Programme Ontology covers brands, series (seasons) and episodes.
                     "production_year": "2012",
                     "_links": {
                         "characters": {
-                            "href": "/characters/12"
+                            "href": "/characters/12", "title" : "Walter White"
                         },
                         "awards": {
                             "href": "/programmes/42/awards"
@@ -404,6 +431,20 @@ A single programme object
                 "birthcity": "",
                 "deathday": "",
                 "biography": "",
+                "images": [
+                    {
+                        "href": "/ressources/images/12",
+                        "slug": "breaking-bad-labo",
+                        "title": "Met labo",
+                        "original": "1024x760"
+                    },
+                    {
+                        "href": "/ressources/images/12",
+                        "slug": "walter-white",
+                        "title": "Walter White",
+                        "original": "1024x760"
+                    }
+                ],
                 "_links": {
                     "self": {
                         "href": "/persons/42"
@@ -431,19 +472,8 @@ A single programme object
                             "href": "https://www.facebook.com/Brad.Official.Page"
                         }
                     ],
-                    "photos": [
-                        {
-                            "id": "breaking-bad-labo",
-                            "title": "Met labo",
-                            "original": "1024x760"
-                        },
-                        {
-                            "id": "walter-white",
-                            "title": "Walter White",
-                            "original": "1024x760"
-                        }
-                    ],
-                    "_links.photos.id": {
+
+                    "images.slug": {
                         "href": "http://media.canalplus.fr/{width}x{height}/{id}{?-SMART}.{ext}",
                         "templated": "true"
                     }
@@ -500,6 +530,20 @@ A single character object
                 "fname": "Walter",
                 "lname": "Walt",
                 "description" : "Walter White a étudié à l'université California Institute of Technology avec Elliott Schwartz dans le domaine de la cristallographie1. 2. En 1985, les recherches de Walt concernant la radiographie contribuent à un projet qui reçoit le prix Nobel de chimie. Il cofonde par la suite la compagnie « Gray Matter Technologies » avec son ami Elliott Schwartz. Walter quitte ensuite son assistante de laboratoire, Gretchen. pendant les vacances avec sa famille, laissant tout derrière, son assistante et ses recherches. Gretchen se marie avec Elliott, et Gray Matter devient une entreprise couronnée de succès grâce aux recherches de Walt. Walter estime secrètement que son travail lui1 a été volé et blâme amèrement Elliott et Gretchen pour son sort.",
+              "images": [
+                    {
+                        "href": "/ressources/images/12",
+                        "slug": "breaking-bad-labo",
+                        "title": "Met labo",
+                        "original": "1024x760"
+                    },
+                    {
+                        "href": "/ressources/images/12",
+                        "slug": "walter-white",
+                        "title": "Walter White",
+                        "original": "1024x760"
+                    }
+                ],
                 "_links": {
                     "self": {
                         "href": "/characters/42"
@@ -521,19 +565,7 @@ A single character object
                             "href": "https://www.facebook.com/walterwite"
                         }
                     ],
-                    "photos": [
-                        {
-                            "id": "breaking-bad-labo",
-                            "title": "Met labo",
-                            "original": "1024x760"
-                        },
-                        {
-                            "id": "walter-white",
-                            "title": "Walter White",
-                            "original": "1024x760"
-                        }
-                    ],
-                    "_links.photos.id": {
+                    "images.slug": {
                         "href": "http://media.canalplus.fr/{width}x{height}/{id}{?-SMART}.{ext}",
                         "templated": "true"
                     }
@@ -589,18 +621,24 @@ A single character object
                             "created_at": "1977-04-22T06:00:00Z"
                         }
                     ],
-                    "photos.id": "http://media.canalplus.fr/{width}x{height}/{id}.{ext}"
-                    
-                },
-                "photos": [
+                "_links.images.slug": {
+                        "href": "http://media.canalplus.fr/{width}x{height}/{id}{?-SMART}.{ext}",
+                        "templated": "true"
+                    }
+                "images": [
                     {
-                        "id": "legrandjournal_20131225",
+                        "href": "/ressources/images/12",
+                        "slug": "legrandjournal_20131225",
                         "alt": "Stromae au Grand Journal du 25/12/2013"
                     },
                     {
-                        "id": "legrandjournal_20131225",
+                        "href": "/ressources/images/12",
+                        "slug": "legrandjournal_20131225",
                         "alt": "Stromae au Grand Journal du 25/12/2013"
                     }
+                    
+                },
+
                 ]
             }
 
@@ -742,6 +780,54 @@ __@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la M
 
 + Response 200 (application/hal+json)
        
-     [Video][] 
+     [Video][]
+
+
+# Group Ressources
+Media Ressources
+
+
+
+## Ressource [/resources/{id}]
++ Model (application/hal+json)
+    HAL+JSON representation. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
+
+    + Headers
+
+            Location : /resources
+
+    + Body
+    
+            {
+                "id": 935214,
+                "slug": "walter-white"
+                "resource_type": "image",
+                "format": "jpg"
+                "created_at": "2012-03-29T09:32:59Z",
+                "width": 283,
+                "height": 424,
+                "author": "canal+",
+                "_links": {
+                    "self": "/ressources/935214",
+                    "category": {
+                        "href": "/category/12", "title": "lgj"
+                        }
+                    },
+                "slug": {
+                        "href": "http://media.canalplus.fr/{width}x{height}/{slug}{?-SMART}.{ext}",
+                        "templated": "true"
+                    }
+                },
+                "created_at": "1977-04-22T06:00:00Z",
+                "updated_at": "1977-04-22T06:00:00Z"
+            }
+            
+### Get [GET] 
++ Parameters 
+    + id (int) ... ressources ID.
+    
++ Response 200 (application/hal+json)
+       
+    [Ressource][]
 
 
