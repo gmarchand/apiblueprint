@@ -106,18 +106,6 @@ All HTTP `POST` `PUT` `DELETE` Request must be signed and based on AWS Signature
 
 > /programmes?title=TitleText&apikey=13246545&signature=shjfd365g3sdf2gdsqfqs
 
-# Data API Root [/]
-Data API entry point.
-
-This resource does not have any attributes. Instead it offers the initial API affordances in the form of the HTTP Link header and 
-HAL links.
-
-## Retrieve the Entry Point [GET]
-
-+ Response 200 (application/hal+json)
-
-        {message:TODO}
-
 
 # Group Category
 
@@ -531,20 +519,6 @@ A single character object
                 "fname": "Walter",
                 "lname": "Walt",
                 "description" : "Walter White a étudié à l'université California Institute of Technology avec Elliott Schwartz dans le domaine de la cristallographie1. 2. En 1985, les recherches de Walt concernant la radiographie contribuent à un projet qui reçoit le prix Nobel de chimie. Il cofonde par la suite la compagnie « Gray Matter Technologies » avec son ami Elliott Schwartz. Walter quitte ensuite son assistante de laboratoire, Gretchen. pendant les vacances avec sa famille, laissant tout derrière, son assistante et ses recherches. Gretchen se marie avec Elliott, et Gray Matter devient une entreprise couronnée de succès grâce aux recherches de Walt. Walter estime secrètement que son travail lui1 a été volé et blâme amèrement Elliott et Gretchen pour son sort.",
-              "images": [
-                    {
-                        "href": "/ressources/images/12",
-                        "slug": "breaking-bad-labo",
-                        "title": "Met labo",
-                        "original": "1024x760"
-                    },
-                    {
-                        "href": "/ressources/images/12",
-                        "slug": "walter-white",
-                        "title": "Walter White",
-                        "original": "1024x760"
-                    }
-                ],
                 "_links": {
                     "self": {
                         "href": "/characters/42"
@@ -566,10 +540,24 @@ A single character object
                             "href": "https://www.facebook.com/walterwite"
                         }
                     ],
-                    "images.slug": {
+                    "_links.images.slug": {
                         "href": "http://media.canalplus.fr/{width}x{height}/{id}{?-SMART}.{ext}",
                         "templated": "true"
                     }
+                    "images": [
+                    {
+                        "href": "/ressources/images/12",
+                        "slug": "breaking-bad-labo",
+                        "title": "Met labo",
+                        "original": "1024x760"
+                    },
+                    {
+                        "href": "/ressources/images/12",
+                        "slug": "walter-white",
+                        "title": "Walter White",
+                        "original": "1024x760"
+                    }
+                ],
                 }
             }
 
