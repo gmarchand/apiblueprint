@@ -134,16 +134,17 @@ HAL links.
     
             {
             "id": 42,
-            "title": "movie",
+            "title": "drama",
             "description": "bla bla bla",
             
             "_links": {
                     "self": { "href": "/category/42" },
                     "parent": [
-                        { "href": "/category/12", "title": "genre"},
+                        { "href": "/category/12", "title": "genre", level: "1"},
+                        { "href": "/category/13", "title": "movie", level: "2"},
                     ],
                     "child" : [
-                    { "href": "/category/52", "title": "drama"},
+                    { "href": "/category/52", "title": "comedy"},
                     ],
                     }
             }
@@ -755,7 +756,7 @@ Listing of video category and video objects, find by GURC identifiers
     [Video][]
 
 ## Video Collection Listing [/videos/free/galaxy={gid}/selections/]
-Collection of video selection list
+Lit all collections of video
 
 __@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la Mise en forme
 
@@ -809,10 +810,10 @@ Media Ressources
                 "author": "canal+",
                 "_links": {
                     "self": "/ressources/935214",
-                    "category": {
-                        "href": "/category/12", "title": "lgj"
-                        }
-                    },
+                    "category": [
+                        {"href": "/category/12", "title": "lgj"},
+                        {"href": "/category/14", "title": "lpj"},
+                    ],
                 "slug": {
                         "href": "http://media.canalplus.fr/{width}x{height}/{slug}{?-SMART}.{ext}",
                         "templated": "true"
