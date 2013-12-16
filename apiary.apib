@@ -143,7 +143,12 @@ All HTTP `POST` `PUT` `DELETE` Request must be signed and based on AWS Signature
 + Response 200 (application/hal+json)
 
     [Content Category][] 
-    
+
+### List root category [GET]
+
++ Response 200 (application/hal+json)
+
+    [Content Category][] 
 
 ## Content Category [/category/{id}] 
 Categorization of content
@@ -160,7 +165,7 @@ Contents are categorized by theme, type and tags.
 
     [Content Category][]
 
-### Update a programme [POST]
+### Update a category [POST]
 + Parameters 
     + id (int) ... Category ID.
     
@@ -168,7 +173,7 @@ Contents are categorized by theme, type and tags.
 
     [Content Category][]
 
-### Delete a programme [DELETE]
+### Delete a category [DELETE]
 
 + Response 204
 
@@ -318,8 +323,8 @@ Programme Ontology covers brands, series (seasons) and episodes.
                 }
             }
 
-### Retrieve a Message [GET]
-At this point we will utilize our `Programmes` resource model and reference it in `Response 200`.
+### Search [GET]
+Retrieve a programme via query search
 
 + Response 200
 
@@ -330,17 +335,27 @@ At this point we will utilize our `Programmes` resource model and reference it i
 
 + Response 204 
 
-## TV Schedule by day [/programmes/schedules/]
-List of all epgids
+## Channel List [/programmes/schedules/]
+List of all Tv channels available
 
 ### [GET]
-
 + Response 200 (application/hal+json)
        
-        Hello World !
+        {
+            "epg": [
+                {
+                    "epgid": "123",
+                    "title": "canalplus"
+                },
+                {
+                    "epgid": "124",
+                    "title": "canalplus cinema"
+                }
+            ]
+        }
 
 
-## TV Schedule by day [/programmes/schedules/{epgid}{/date}] 
+## TV programme schedule by day [/programmes/schedules/{epgid}{/date}] 
 List all programmes of a particular day
 ### [GET]
 + Parameters 
@@ -368,7 +383,9 @@ A single programme object
 + Parameters 
     + id (int) ... Programme ID.
     
-+ Response 204
++ Response 200 (application/hal+json)
+       
+         [Programme][]
 
 ### Delete a programme [DELETE]
 
@@ -493,12 +510,15 @@ A single person object
 
 ### Update [POST]
 
-+ Response 204
++ Response 200 (application/hal+json)
+    [Person][]
 
 ### Delete [DELETE]
 
 + Response 204
 
+
+# Group Characters
 ## Character [/characters/{id}]
 A single character object
 
@@ -732,7 +752,7 @@ A single video object for free video platform
     
 + Response 200 (application/hal+json)
        
-        Hello World !
+    [Video][]
 
 
 ## Video listing [/videos/free{/galaxy=gid}{/u=uid}{/r=rid}{/c=cid}]
@@ -761,12 +781,12 @@ __@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la M
 
 + Response 200 (application/hal+json)
        
-    [Video][]
+        {"message": "todo"}
 
 ## Video Collection [/videos/free/galaxy={gid}/selections/{id}]
 Listing of video selection list, 
 
-__@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la Mise en forme ou on reprend
+
 
 ### Get [GET] 
 + Parameters 
@@ -783,7 +803,8 @@ Media Ressources
 
 
 
-## Ressource [/resources/{id}]
+## Ressource [/resources/]
+
 + Model (application/hal+json)
     HAL+JSON representation. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
 
@@ -816,7 +837,21 @@ Media Ressources
                 "created_at": "1977-04-22T06:00:00Z",
                 "updated_at": "1977-04-22T06:00:00Z"
             }
-            
+
+### Search [GET] 
++ Response 200 (application/hal+json)
+       
+    [Ressource][]
+
+### Create [POST] 
+
++ Response 200 (application/hal+json)
+       
+    [Ressource][]
+
+
+## Ressource [/resources/{id}]
+
 ### Get [GET] 
 + Parameters 
     + id (int) ... ressources ID.
@@ -825,4 +860,14 @@ Media Ressources
        
     [Ressource][]
 
+### Update [POST] 
++ Parameters 
+    + id (int) ... ressources ID.
+    
++ Response 200 (application/hal+json)
+       
+    [Ressource][]
 
+### Delete [DELETE]
+
++ Response 204
