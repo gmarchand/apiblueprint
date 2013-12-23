@@ -723,27 +723,24 @@ A single video object for free video platform
                     "fb_like": 1336543,
                     "tw_share": 1234554
                 },
-                "links": {
+                "_links": {
                     "self": "/videos/free/4531132",
-                    "images": "/videos/free/4531132/images",
-                    "urc": {
-                        "galaxy": {
-                            "href": "/videos/free/gid=12",
-                            "title": "cplus"
-                        },
-                        "universe": {
-                            "href": "/videos/free/gid=12/uid=13",
-                            "title": "series"
-                        },
-                        "rubrication": {
-                            "href": "/videos/free/gid=12/uid=13/rid=1",
-                            "title": "homeland"
-                        },
-                        "category": {
-                            "href": "/videos/free/gid=12/uid=13/rid=1/cid=2",
-                            "title": "ba"
-                        }
+                    "urc": "/videos/free/gid=12/uid=13/rid=1/cid=2",
+                    "_links.images.slug": {
+                        "href": "http://media.canalplus.fr/{width}x{height}/{slug}{?-SMART}.{ext}",
+                        "templated": "true"
                     }
+                    "images": [
+                        {
+                            "href": "/ressources/images/12",
+                            "slug": "legrandjournal_20131225",
+                            "alt": "Stromae au Grand Journal du 25/12/2013"
+                        },
+                        {
+                            "href": "/ressources/images/12",
+                            "slug": "legrandjournal_20131225",
+                            "alt": "Stromae au Grand Journal du 25/12/2013"
+                        }
                 },
                 "created_at": "1977-04-22T06:00:00Z",
                 "updated_at": "1977-04-22T06:00:00Z"
@@ -776,7 +773,6 @@ Listing of video category and video objects, find by GURC identifiers
 ## Video Collection Listing [/videos/free/galaxy={gid}/selections/]
 Lit all collections of video
 
-__@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la Mise en forme
 
 ### Get [GET] 
 + Parameters 
@@ -785,7 +781,14 @@ __@TODO__ : A voir si elle ne sont pas implémenté dans le BO car c'est de la M
 
 + Response 200 (application/hal+json)
        
-        {"message": "todo"}
+        {
+            "_links": [
+                {
+                    "href": "/videos/free/galaxy=12/selections/12",
+                    "title": "C+ - AD fin du Monde"
+                }
+            ]
+        }
 
 ## Video Collection [/videos/free/galaxy={gid}/selections/{id}]
 Listing of video selection list, 
@@ -799,7 +802,34 @@ Listing of video selection list,
 
 + Response 200 (application/hal+json)
        
-     [Video][]
+             {
+                "id": 12,
+                "title": "C+ - AD fin du Monde",
+                "sort": {
+                "date": "asc",
+                "hour": "desc",
+                "view": "asc"
+            },
+            "_links": {
+                "self": "/videos/free/galaxy=12/selections/12",
+                "urc": [
+                    {
+                        "href": "/videos/free/galaxy=12/u=13/r=14/c=5",
+                        "title": "Scandal - BA"
+                    },
+                    {
+                        "href": "/videos/free/12",
+                        "title": "Meteo de Doria du 12/01/123"
+                    }
+                ],
+                "video": [
+                    {
+                        "href": "/videos/free/125",
+                        "title": "Meteo de Doria du 12/01/123"
+                    }
+                ]
+            }
+        }
 
 
 # Group Ressource
