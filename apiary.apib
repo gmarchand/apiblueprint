@@ -328,11 +328,22 @@ Programme Ontology covers brands, series (seasons) and episodes.
             }
 
 ### Search [GET]
-Retrieve a programme via query search
+Retrieve a programme list via query search
 
 + Response 200
 
-    [Programme][]
+        {
+            "_links": [
+                {
+                    "href": "/programmes/42",
+                    "title": "La Météo de Doria du 15/10/2012"
+                },
+                {
+                    "href": "/programmes/54",
+                    "title": "Le Grand Journal"
+                }
+            ]
+        }
 
 
 ### Create a programme [POST]
@@ -368,7 +379,18 @@ List all programmes of a particular day
 
 + Response 200 (application/hal+json)
 
-    [Programme][]
+        {
+            "_links": [
+                {
+                    "href": "/programmes/42",
+                    "title": "La Météo de Doria du 15/10/2012"
+                },
+                {
+                    "href": "/programmes/54",
+                    "title": "Le Grand Journal"
+                }
+            ]
+        }
 
 
 
@@ -441,20 +463,6 @@ A single programme object
                 "birthcity": "",
                 "deathday": "",
                 "biography": "",
-                "images": [
-                    {
-                        "href": "/ressources/images/12",
-                        "slug": "breaking-bad-labo",
-                        "title": "Met labo",
-                        "original": "1024x760"
-                    },
-                    {
-                        "href": "/ressources/images/12",
-                        "slug": "walter-white",
-                        "title": "Walter White",
-                        "original": "1024x760"
-                    }
-                ],
                 "_links": {
                     "self": {
                         "href": "/persons/42"
@@ -482,9 +490,22 @@ A single programme object
                             "href": "https://www.facebook.com/Brad.Official.Page"
                         }
                     ],
-
-                    "images.slug": {
-                        "href": "http://media.canalplus.fr/{width}x{height}/{id}{?-SMART}.{ext}",
+                    "images": [
+                        {
+                            "href": "/ressources/images/12",
+                            "slug": "breaking-bad-labo",
+                            "title": "Met labo",
+                            "original": "1024x760"
+                        },
+                        {
+                            "href": "/ressources/images/12",
+                            "slug": "walter-white",
+                            "title": "Walter White",
+                            "original": "1024x760"
+                        }
+                    ],
+                    "_link.images.slug": {
+                        "href": "http://media.canalplus.fr/{width}x{height}/{slug}{?-SMART}.{ext}",
                         "templated": "true"
                     }
                 }
@@ -494,7 +515,18 @@ A single programme object
 
 + Response 200 (application/hal+json)
        
-    [Person][]
+        {
+            "_links": [
+                {
+                    "href": "/persons/42",
+                    "title": "Brad Pitt"
+                },
+                {
+                    "href": "/persons/44",
+                    "title": "Jessica Biel"
+                }
+            ]
+        }
 
 ### Create a person [POST]
 
@@ -565,7 +597,7 @@ A single character object
                         }
                     ],
                     "_links.images.slug": {
-                        "href": "http://media.canalplus.fr/{width}x{height}/{id}{?-SMART}.{ext}",
+                        "href": "http://media.canalplus.fr/{width}x{height}/{slug}{?-SMART}.{ext}",
                         "templated": "true"
                     }
                     "images": [
@@ -635,7 +667,7 @@ A single character object
                         }
                     ],
                 "_links.images.slug": {
-                        "href": "http://media.canalplus.fr/{width}x{height}/{id}{?-SMART}.{ext}",
+                        "href": "http://media.canalplus.fr/{width}x{height}/{slug}{?-SMART}.{ext}",
                         "templated": "true"
                     }
                 "images": [
@@ -659,7 +691,18 @@ A single character object
 
 + Response 200 (application/hal+json)
        
-    [Article][]
+        {
+            "_links": [
+                {
+                    "href": "/videos/free/4531132",
+                    "title": "Le Grand Journal du 15/10/1201"
+                },
+                {
+                    "href": "/videos/free/4531112",
+                    "title": "L'instant Barré"
+                }
+            ]
+        }
 
 ### Create a article [POST]
 
@@ -768,7 +811,18 @@ Listing of video category and video objects, find by GURC identifiers
     
 + Response 200 (application/hal+json)
        
-    [Video][]
+        {
+            "_links": [
+                {
+                    "href": "/videos/free/4531132",
+                    "title": "Le Grand Journal du 15/10/1201"
+                },
+                {
+                    "href": "/videos/free/4531112",
+                    "title": "L'instant Barré"
+                }
+            ]
+        }
 
 ## Video Collection Listing [/videos/free/galaxy={gid}/selections/]
 Lit all collections of video
@@ -786,6 +840,10 @@ Lit all collections of video
                 {
                     "href": "/videos/free/galaxy=12/selections/12",
                     "title": "C+ - AD fin du Monde"
+                },
+                {
+                    "href": "/videos/free/galaxy=12/selections/14",
+                    "title": "C+ - Zapping"
                 }
             ]
         }
@@ -802,34 +860,34 @@ Listing of video selection list,
 
 + Response 200 (application/hal+json)
        
-             {
+            {
                 "id": 12,
                 "title": "C+ - AD fin du Monde",
                 "sort": {
-                "date": "asc",
-                "hour": "desc",
-                "view": "asc"
-            },
-            "_links": {
-                "self": "/videos/free/galaxy=12/selections/12",
-                "urc": [
-                    {
-                        "href": "/videos/free/galaxy=12/u=13/r=14/c=5",
-                        "title": "Scandal - BA"
-                    },
-                    {
-                        "href": "/videos/free/12",
-                        "title": "Meteo de Doria du 12/01/123"
-                    }
-                ],
-                "video": [
-                    {
-                        "href": "/videos/free/125",
-                        "title": "Meteo de Doria du 12/01/123"
-                    }
-                ]
+                    "date": "asc",
+                    "hour": "desc",
+                    "view": "asc"
+                },
+                "_links": {
+                    "self": "/videos/free/galaxy=12/selections/12",
+                    "urc": [
+                        {
+                            "href": "/videos/free/galaxy=12/u=13/r=14/c=5",
+                            "title": "Scandal - BA"
+                        },
+                        {
+                            "href": "/videos/free/12",
+                            "title": "Meteo de Doria du 12/01/123"
+                        }
+                    ],
+                    "video": [
+                        {
+                            "href": "/videos/free/125",
+                            "title": "Meteo de Doria du 12/01/123"
+                        }
+                    ]
+                }
             }
-        }
 
 
 # Group Ressource
@@ -875,7 +933,18 @@ Media Ressources
 ### Search [GET] 
 + Response 200 (application/hal+json)
        
-    [Ressource][]
+        {
+            "_links": [
+                {
+                    "href": "/ressources/935214",
+                    "title": "Walter White"
+                },
+                {
+                    "href": "/ressources/44",
+                    "title": "Jessica Ramirez"
+                }
+            ]
+        }
 
 ### Create [POST] 
 
