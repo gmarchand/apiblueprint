@@ -853,7 +853,7 @@ A single video object for free video platform
     [Video][]
 
 
-## Video listing [/videos/free{/g=gid}{/u=uid}{/r=rid}{/c=cid}]
+## Video listing [/videos/free/gid={gid}{/uid=uid}{/rid=rid}{/cid=cid}]
 Listing of video category and video objects, find by GURC identifiers
 ### Get [GET] 
 + Parameters 
@@ -905,7 +905,7 @@ Listing of video category and video objects, find by GURC identifiers
             }
         }
 
-## Video Collection Listing [/videos/free/g={gid}/selections/]
+## Video Collection Listing [/videos/free/gid={gid}/selections/]
 Lit all collections of video
 
 
@@ -919,17 +919,17 @@ Lit all collections of video
         {
             "_links": [
                 {
-                    "href": "/videos/free/g=12/selections/12",
+                    "href": "/videos/free/gid=12/selections/12",
                     "title": "C+ - AD fin du Monde"
                 },
                 {
-                    "href": "/videos/free/g=12/selections/14",
+                    "href": "/videos/free/gid=12/selections/14",
                     "title": "C+ - Zapping"
                 }
             ]
         }
 
-## Video Collection [/videos/free/g={gid}/selections/{id}]
+## Video Collection [/videos/free/gid={gid}/selections/{id}]
 Listing of video selection list, 
 
 
@@ -953,12 +953,12 @@ Listing of video selection list,
                     "self": "/videos/free/galaxy=12/selections/12",
                     "urc": [
                         {
-                            "href": "/videos/free/galaxy=12/u=13/r=14/c=5",
+                            "href": "/videos/free/gid=12/u=13/r=14/c=5",
                             "title": "Scandal - BA"
                         },
                         {
-                            "href": "/videos/free/12",
-                            "title": "Meteo de Doria du 12/01/123"
+                            "href": "/videos/free/gid=12/u=13/r=14",
+                            "title": "meteo de doria"
                         }
                     ],
                     "video": [
