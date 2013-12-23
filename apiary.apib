@@ -147,7 +147,18 @@ All HTTP `POST` `PUT` `DELETE` Request must be signed and based on AWS Signature
 
 + Response 200 (application/hal+json)
 
-    [Content Category][] 
+        {
+            "_links": [
+                {
+                    "href": "/category/42",
+                    "title": "Drama"
+                },
+                {
+                    "href": "/category/54",
+                    "title": "tvshow"
+                }
+            ]
+        }
 
 ## Content Category [/category/{id}] 
 Categorization of content
