@@ -566,8 +566,8 @@ A single person object
 
 
 # Group Characters
-## Character [/characters/{id}]
-A single character object
+
+## Character [/characters]
 
 + Model (application/hal+json)
     HAL+JSON representation of Programme Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
@@ -627,6 +627,32 @@ A single character object
                 ],
                 }
             }
+
+
+### List [GET] 
+
++ Response 200 (application/hal+json)
+       
+        {
+            "_links": [
+                {
+                    "href": "/characters/42",
+                    "title": "Walter White"
+                },
+                {
+                    "href": "/persons/44",
+                    "title": "Olivia Pope"
+                }
+            ]
+        }
+
+### Create a person [POST]
+
++ Response 200 (application/hal+json)
+    [Person][]
+
+## Character [/characters/{id}]
+A single character object
 
 ### Get [GET] 
 + Parameters 
@@ -705,12 +731,12 @@ A single character object
         {
             "_links": [
                 {
-                    "href": "/videos/free/4531132",
-                    "title": "Le Grand Journal du 15/10/1201"
+                    "href": "/articles/4531132",
+                    "title": "La France perd la Coupe du Monde"
                 },
                 {
-                    "href": "/videos/free/4531112",
-                    "title": "L'instant Barré"
+                    "href": "/articles/4531112",
+                    "title": "Scary Movie gagne l'Oscar du Film 2013"
                 }
             ]
         }
