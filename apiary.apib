@@ -866,16 +866,43 @@ Listing of video category and video objects, find by GURC identifiers
 + Response 200 (application/hal+json)
        
         {
-            "_links": [
-                {
-                    "href": "/videos/free/4531132",
-                    "title": "Le Grand Journal du 15/10/1201"
+            "id": "42",
+            "title": "Fight Club",
+            "_links": {
+                "self": {
+                    "href": "/videos/free/gid=42/uid=12/rid=34"
                 },
-                {
-                    "href": "/videos/free/4531112",
-                    "title": "L'instant Barré"
-                }
-            ]
+                "child": [
+                    {
+                        "href": "/videos/free/gid=42/rid=34/cid=12",
+                        "title": "Bande Annonce"
+                    },
+                    {
+                        "href": "/videos/free/gid=42/rid=34/cid=14",
+                        "title": "Extrait"
+                    }
+                ],
+                "parent": [
+                    {
+                        "href": "/videos/free/gid=42/uid=12",
+                        "title": "Cinema"
+                    },
+                    {
+                        "href": "/videos/free/gid=42",
+                        "title": "WWWPLUS"
+                    }
+                ],
+                "videos": [
+                    {
+                        "href": "/videos/free/4531132",
+                        "title": "Le Grand Journal du 15/10/1201"
+                    },
+                    {
+                        "href": "/videos/free/4531112",
+                        "title": "L'instant Barré"
+                    }
+                ]
+            }
         }
 
 ## Video Collection Listing [/videos/free/galaxy={gid}/selections/]
