@@ -213,19 +213,17 @@ Programme Ontology covers brands, series (seasons) and episodes.
                 "created_at": "2014-04-14T02:15:15Z",
                 "updated_at": "2014-04-14T02:15:15Z",
                 "title": "Breaking Bad",
-                "subtitle": "La chimie pour les toxicos",
+                "subtitle": "bla bla bla bla bla",
                 "type": "brand",
                 "baseline": "un professeur de chimie sur-qualifié et père de famille, qui, ayant appris qu'il est atteint d'un cancer du poumon à un stade avancé et pour assurer l'avenir financier de sa famille, sombre dans le crime en se lançant dans la fabrication et la vente de méthamphétamine, avec l'aide de l'un de ses anciens élèves, Jesse Pinkman",
                 "description": "Description",
                 "text": "Rita's ex-hubby, the crack addict, repeatedly raped her, knocked her around. Ever since then she's been completely uninterested in sex. That works for me! although a spare will do.Okay. Uh, is there something I can.. And I will. I can always see other people's problems more clearly than my own. Everyone hides who they are at least some of their time.Lightweight, uh... Harry Morgan, tonight's the night. It's going to happen again and again. Has to happen. Nice night. Miami is a great town. I'm drifting, but not to sleep, my father taught me one thing above all others; to be sure. And I am. Matt Chambers, Miami is your last stop. If God is in the details and if I believed in God, he's in this room with me. I just wish he had brought an extension cord.",
-                "subtitle": "bla bla bla bla bla",
-                
                 "_links": {
                     "self": {
                         "href": "/programmes/42"
                     },
                     "category": [
-                        { 
+                        {
                             "href": "/category/12",
                             "title": "series"
                         },
@@ -259,7 +257,7 @@ Programme Ontology covers brands, series (seasons) and episodes.
                             "original": "1024x760"
                         },
                         {
-                            "href": "/ressources/images/12",                        
+                            "href": "/ressources/images/12",
                             "slug": "walter-white",
                             "title": "Walter White",
                             "original": "1024x760"
@@ -270,10 +268,10 @@ Programme Ontology covers brands, series (seasons) and episodes.
                             "href": "/videos/free/12",
                             "title": "Bande annonce 1 VO"
                         },
-                        {                       {
+                        {
                             "href": "/videos/free/12/selections/14",
                             "title": "Liste de selections Meteo de Doria"
-                        },
+                        }
                     ],
                     "versions": [
                         {
@@ -329,7 +327,8 @@ Programme Ontology covers brands, series (seasons) and episodes.
                     "production_year": "2012",
                     "_links": {
                         "characters": {
-                            "href": "/characters/12", "title" : "Walter White"
+                            "href": "/characters/12",
+                            "title": "Walter White"
                         },
                         "awards": {
                             "href": "/programmes/42/awards"
@@ -448,6 +447,106 @@ A single programme object
 + Response 200 (application/hal+json)
        
      [Programme][]
+
+## Programmes [/programmes/{id}/suggest]
+Suggest links to this programm based on semantics 
+### Get a programme [GET] 
++ Parameters 
+    + id (int) ... Programme ID.
+    
++ Response 200 (application/hal+json)
+       
+     [Programme][]
+    + Body
+    
+            {
+                "_links": {
+                    "self": {
+                        "href": "/programmes/42/suggest"
+                    },
+                    "category": [
+                        {
+                            "href": "/category/12",
+                            "title": "series"
+                        },
+                        {
+                            "href": "/category/15",
+                            "title": "drama"
+                        }
+                    ],
+                    "persons": [
+                        {
+                            "href": "/persons/12",
+                            "title": "Bryan Cranston",
+                            "role": "actor"
+                        },
+                        {
+                            "href": "/persons/13",
+                            "title": "Aaron Paul",
+                            "role": "actor"
+                        },
+                        {
+                            "href": "/persons/14",
+                            "title": "Vince Gilligan",
+                            "role": "director"
+                        }
+                    ],
+                    "images": [
+                        {
+                            "href": "/ressources/images/12",
+                            "slug": "breaking-bad-labo",
+                            "title": "Met labo",
+                            "original": "1024x760"
+                        },
+                        {
+                            "href": "/ressources/images/12",
+                            "slug": "walter-white",
+                            "title": "Walter White",
+                            "original": "1024x760"
+                        }
+                    ],
+                    "videos": [
+                        {
+                            "href": "/videos/free/12",
+                            "title": "Bande annonce 1 VO"
+                        },
+                        {
+                            "href": "/videos/free/12/selections/14",
+                            "title": "Liste de selections Meteo de Doria"
+                        }
+                    ],
+                    "brand": [
+                        {
+                            "href": "/programmes/50",
+                            "title": "Breaking bad"
+                        }
+                    ],
+                    "seasons": [
+                        {
+                            "href": "/programmes/50",
+                            "title": "Saison 1"
+                        },
+                        {
+                            "href": "/programmes/52",
+                            "title": "Saison 2"
+                        }
+                    ],
+                    "episodes": [
+                        {
+                            "href": "/programmes/52",
+                            "title": "Episode 3"
+                        }
+                    ],
+                    "articles": {
+                        "href": "/articles/22"
+                    },
+                    "_links.images.slug": {
+                        "href": "http://media.canalplus.fr/{width}x{height}/{id}{?-SMART}.{ext}",
+                        "templated": "true"
+                    }
+                }
+            }
+
 
 
 # Group Person
