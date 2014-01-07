@@ -1138,6 +1138,29 @@ Media Ressources
        
     [Ressource][]
 
+## Ressource File [/resources/{id}/content]
+
+### Upload [POST]  
++ Request (multipart/form-data, boundary=AaB03x)
+    
+    + Headers
+        
+            Content-Length: $requestlen
+    
+    + Body
+            
+            --AaB03x
+            content-disposition: form-data; name="userfile"; filename="$filename"
+            Content-Type: $mimetype
+            Content-Transfer-Encoding: binary
+            
+            $binarydata
+            --AaB03x--
+ 
++ Response 201 (application/json)
+
+        {"message":"File Uploaded and Linked","code": 200}
+
 
 ## Ressource [/resources/{id}]
 
@@ -1160,10 +1183,4 @@ Media Ressources
 ### Delete [DELETE]
 
 + Response 204 
-
-## Ressource File [/resources/{id}/content]
-
-### Update Media [PUT] (multipart/form-data)
-
-+ Response 204
 
