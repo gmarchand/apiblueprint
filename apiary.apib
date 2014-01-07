@@ -1130,6 +1130,9 @@ Media Ressources
         }
 
 ### Create [POST] 
+1. Client -> Rest Service : Post the metadata first to create the ressource object.
+1. Rest Service -> Client : Return an ID. 
+1. Client -> Rest Service : sends the file to `/ressources/{id}/content`, and the server re-associates the file and the metadata.
 
 + Response 200 (application/hal+json)
        
@@ -1158,8 +1161,9 @@ Media Ressources
 
 + Response 204 
 
-## Ressource [/resources/{id}/content]
+## Ressource File [/resources/{id}/content]
+
 ### Update Media [PUT] (multipart/form-data)
-Upload a file to 
+
 + Response 204
 
