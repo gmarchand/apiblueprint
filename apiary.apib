@@ -49,16 +49,16 @@ You can add `fields` paramater to API to get only a partial information o f the 
 > /persons/123465?fields=fname,lname
 
 ## Pagination
-You can add `offset` and `limit` parameters to collection ressources. For example 
-> /category/genre/movie?offset=3&limit=50
+You can add `count` and `since_id` or `max_id` parameters to collection ressources. For example 
+> /category/genre/movie?since_id=50&count=50
 
 When pagination is available, next links are in models
 
 > "_links": {
 
-> "next": "/tickets?offset=100&limit=50"
+> "next": "/tickets?since_id=100&count=50"
 
-> "previous": "/tickets?offset=50&limit=50"
+> "previous": "/tickets?since_id=0&count=50"
 
 > }
     
