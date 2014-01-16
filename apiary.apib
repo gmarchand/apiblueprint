@@ -209,32 +209,69 @@ Programme Ontology covers brands, series (seasons) and episodes.
     
             {
                 "id": "42",
-                "external-id": [
-                    {
-                        "numaff": 13245,
-                        "numprog": 12345,
-                        "vodid": 132123,
-                        "svodid": 13213,
-                        "antenneid": 1231
-                    }
-                ],
-                "diffusion": [
+                "external-id": {
+                    "tv": [
                         {
-                            "epgid": 12,
-                            "diffid": 12313,
-                            "start": "1977-04-22T06:00:00Z",
-                            "end": "1977-04-22T06:00:00Z"
+                            "title": "D8",
+                            "numaff": 13245,
+                            "numprog": 12345
                         }
+                    ],
+                    "vod": [
+                        {
+                            "title": "OCS",
+                            "id": "132123"
+                        }
+                    ],
+                    "vsod": [
+                        {
+                            "title": "CANALPLUS",
+                            "id": "132123"
+                        }
+                    ]
+                },
+                "diffusion": [
+                    {
+                        "epgid": 12,
+                        "diffid": 12313,
+                        "start": "1977-04-22T06:00:00Z",
+                        "end": "1977-04-22T06:00:00Z"
+                    }
                 ],
                 "version": "3",
                 "created_at": "2014-04-14T02:15:15Z",
                 "updated_at": "2014-04-14T02:15:15Z",
-                "title": "Breaking Bad",
-                "subtitle": "bla bla bla bla bla",
                 "type": "brand",
-                "baseline": "un professeur de chimie sur-qualifié et père de famille, qui, ayant appris qu'il est atteint d'un cancer du poumon à un stade avancé et pour assurer l'avenir financier de sa famille, sombre dans le crime en se lançant dans la fabrication et la vente de méthamphétamine, avec l'aide de l'un de ses anciens élèves, Jesse Pinkman",
-                "description": "Description",
-                "text": "Rita's ex-hubby, the crack addict, repeatedly raped her, knocked her around. Ever since then she's been completely uninterested in sex. That works for me! although a spare will do.Okay. Uh, is there something I can.. And I will. I can always see other people's problems more clearly than my own. Everyone hides who they are at least some of their time.Lightweight, uh... Harry Morgan, tonight's the night. It's going to happen again and again. Has to happen. Nice night. Miami is a great town. I'm drifting, but not to sleep, my father taught me one thing above all others; to be sure. And I am. Matt Chambers, Miami is your last stop. If God is in the details and if I believed in God, he's in this room with me. I just wish he had brought an extension cord.",
+                "title": [
+                    {
+                        "source": "web",
+                        "data": "Breaking Bad"
+                    }
+                ],
+                "subtitle": [
+                    {
+                        "source": "plurimedia",
+                        "data": "Rattrapage de cours de Chimie, regarde !"
+                    }
+                ],
+                "baseline": [
+                    {
+                        "source": "vod",
+                        "data": "un professeur de chimie sur-qualifié et père de famille, qui, ayant appris qu'il est atteint d'un cancer du poumon à un stade avancé et pour assurer l'avenir financier de sa famille, sombre dans le crime en se lançant dans la fabrication et la vente de méthamphétamine, avec l'aide de l'un de ses anciens élèves, Jesse Pinkman"
+                    }
+                ],
+                "description": [
+                    {
+                        "source": "vod",
+                        "data": "Tu vas voir c'est cool !"
+                    }
+                ],
+                "text": [
+                    {
+                        "source": "vod",
+                        "data": "Rita's ex-hubby, the crack addict, repeatedly raped her, knocked her around. Ever since then she's been completely uninterested in sex. That works for me! although a spare will do.Okay. Uh, is there something I can.. And I will. I can always see other people's problems more clearly than my own. Everyone hides who they are at least some of their time.Lightweight, uh... Harry Morgan, tonight's the night. It's going to happen again and again. Has to happen. Nice night. Miami is a great town. I'm drifting, but not to sleep, my father taught me one thing above all others; to be sure. And I am. Matt Chambers, Miami is your last stop. If God is in the details and if I believed in God, he's in this room with me. I just wish he had brought an extension cord."
+                    }
+                ],
                 "_links": {
                     "self": {
                         "href": "/programmes/42"
@@ -327,7 +364,6 @@ Programme Ontology covers brands, series (seasons) and episodes.
                         "templated": "true"
                     }
                 },
-   
                 "movie": {
                     "lifecycle": "theater",
                     "production_year": "2012",
