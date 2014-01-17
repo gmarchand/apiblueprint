@@ -106,6 +106,11 @@ All HTTP `POST` `PUT` `DELETE` Request must be signed and based on AWS Signature
 > /programmes?title=TitleText&apikey=13246545&signature=shjfd365g3sdf2gdsqfqs
 
 
+## TODO
+* A mon avis, il faut supprimer les attributs qui ne sont pas des `href` de l'objet links car on va avoir du mal à faire des patchs 
+http://jsonapi.org/format/ > § Updating a Document (PATCH). **Faire un Diagramme de séquence dans les STDs**
+
+
 # Group Category
 
 ## Content Category [/category/]
@@ -177,21 +182,16 @@ Contents are categorized by theme, type and tags.
 
 ### Update a category [PATCH]
 + Parameters 
-    + id (int) ... Category ID.
+    + id (int) ... Category Id of a content
     
 + Response 200 (application/hal+json)
 
     [Content Category][]
 
-### Create a category [POST]
-
-+ Response 200 (application/hal+json)
-
-    [Content Category][]
-
-
 ### Delete a category [DELETE]
-
++ Parameters 
+    + id (int) ... Category Id of a content
+    
 + Response 204
 
 
@@ -418,22 +418,9 @@ Retrieve a programme list via query search
 
 
 ### Create a programme [POST]
-
 + Response 200 (application/hal+json)
-
-            [Programme][]
-        
-
-### Update a programme [PATCH]
-Use of [RFC 6902](http://tools.ietf.org/html/rfc6902) to update an object
-
-+ Request (application/json-patch+json)
-    + Body
-        
-            [  {"replace": "/title[?(@.source=='web')]", "value": "Breaking Bad, La Série HBO"}]
-
-+ Response 204 
-
+       
+    [Programme][]
 
 
 ## Channel List [/programmes/schedules/]
@@ -491,13 +478,17 @@ A single programme object
        
     [Programme][]
 
-### Update a programme [POST]
-+ Parameters 
-    + id (int) ... Programme ID.
-    
-+ Response 200 (application/hal+json)
-       
-    [Programme][]
+### Update a programme [PATCH]
+Use of [RFC 6902](http://tools.ietf.org/html/rfc6902) to update an object
+
++ Request (application/json-patch+json)
+    + Parameters 
+        + id (int) ... Programme ID.
+    + Body
+        
+            [  {"replace": "/title[?(@.source=='web')]", "value": "Breaking Bad, La Série HBO"}]
+
++ Response 204 
 
 ### Delete a programme [DELETE]
 
@@ -730,7 +721,15 @@ A single person object
        
     [Person][]
 
-### Update [POST]
+### Update [PATCH]
+Use of [RFC 6902](http://tools.ietf.org/html/rfc6902) to update an object
+
++ Request (application/json-patch+json)
+    + Parameters 
+        + id (int) ... Programme ID.
+    + Body
+        
+            [  {"replace": "/fname[?(@.source=='web')]", "value": "Braddy"}]
 
 + Response 200 (application/hal+json)
     [Person][]
