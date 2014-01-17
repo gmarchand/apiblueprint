@@ -402,6 +402,18 @@ Retrieve a programme list via query search
 
 + Response 204 
 
+### Update a programme [PATCH]
+Use of [RFC 6902](http://tools.ietf.org/html/rfc6902) to update an object
+
++ Request (application/json-patch+json)
+    + Body
+        
+            [  {"replace": "/title[?(@.source=='web')]", "value": "Breaking Bad, La Série HBO"}]
+
++ Response 204 
+
+
+
 ## Channel List [/programmes/schedules/]
 List of all Tv channels available
 
