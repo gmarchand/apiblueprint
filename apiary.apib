@@ -83,39 +83,24 @@ parameter `sort` can be used to describe sorting rules. Accommodate complex sort
 
 > GET /tickets?sort=-priority,created_at - Retrieves a list of tickets in descending order of priority. Within a specific priority, older tickets are ordered first
 
-## Security
-All resquests are only available with HTTPS protocol
-
-All HTTP `POST` `PUT` `DELETE` Request must be signed and based on AWS Signature. You must have an `API KEY` and `API SECRET` credentials.
-1. Sort request parameters alphabetically (e.g. foo=1, bar=2, baz=3 sorts to bar=2, baz=3, foo=1)
-
-1. Percent encode every key and value that will be signed.
-
-1. Separate the encoded parameter names from their encoded values with the equals sign ( = ) (ASCII character 61), even if the parameter value is empty.
-
-1. Separate the name-value pairs with an ampersand ( & ) (ASCII character 38).
-
-1. Create the string to sign according to the following pseudo-grammar (the "\n" represents an ASCII newline character).
-> StringToSign = HTTPVerb + "\n" +
-> ValueOfHostHeaderInLowercase + "\n" +
-> HTTPRequestURI + "\n" +
-> CanonicalizedQueryString
-
-1. Include the signature parameter in the request encoded as lowercase HEX (e.g. signature=7431d31140cf412ab5caa73586d6324a)
-
-1. Calculate an RFC 2104-compliant HMAC with the string you just created, your `API SECRET` as the key, and SHA256 or SHA1 as the hash algorithm.
-
-1. Convert the resulting value to base64.
-
-1. Use the resulting value as the value of the `signature` request parameter.
-
-> /programmes?title=TitleText&apikey=13246545&signature=shjfd365g3sdf2gdsqfqs
-
 
 ## TODO
 * A mon avis, il faut supprimer les attributs qui ne sont pas des `href` de l'objet links car on va avoir du mal à faire des patchs 
 http://jsonapi.org/format/ > § Updating a Document (PATCH). **Faire un Diagramme de séquence dans les STDs**
 
+# Authentication
+## Authentication [/oauth/accessToken]
+API uses (OAuth 2.0 client credential)[http://tools.ietf.org/html/rfc6749#section-4.4] granted access tokens for authentication. This method is one-legged and uses the API client's credentials sent as HTTP basic authentication to authorize and request an access token for subsequent requests.
+HTTP Basic Auth - base64encode(clientId:clientSecret)
+
++ Request (application/x-www-form-urlencoded)
+    
+        username=gridinoc&password=test
+
++ Response 200
+        
+        (some html)
+ 
 
 # Group Category
 
