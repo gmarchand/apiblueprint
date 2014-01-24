@@ -89,18 +89,36 @@ parameter `sort` can be used to describe sorting rules. Accommodate complex sort
 http://jsonapi.org/format/ > § Updating a Document (PATCH). **Faire un Diagramme de séquence dans les STDs**
 
 # Authentication
+
 ## Authentication [/oauth/accessToken]
-API uses (OAuth 2.0 client credential)[http://tools.ietf.org/html/rfc6749#section-4.4] granted access tokens for authentication. This method is one-legged and uses the API client's credentials sent as HTTP basic authentication to authorize and request an access token for subsequent requests.
-HTTP Basic Auth - base64encode(clientId:clientSecret)
 
-+ Request (application/x-www-form-urlencoded)
+API uses [OAuth 2.0 client credential](http://tools.ietf.org/html/rfc6749#section-4.4) granted access tokens for authentication. This method is one-legged and uses the API client's credentials sent as HTTP basic authentication to authorize and request an access token for subsequent requests.
+
+- HTTP Basic Auth - `base64encode(clientId:clientSecret)`
+
+### [POST]
++ Headers
+
+        Authentication: Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0
+
++ Request (application/json)
     
-        username=gridinoc&password=test
+        { 
+            "grant_type": "client_credentials", 
+            "state": "123456789123456789", 
+            "scope": "product" 
+        }
 
-+ Response 200
++ Response 200 (application/json)
         
-        (some html)
- 
+        {
+            "access_token": "ec41a24058ab4ea99318fe65af8b79af",
+            "token_type": "bearer",
+            "expires_in": 3599,
+            "refresh_token": "982a593a75544064a34d6cc165444a98",
+            "state": "123456789123456789"
+        }
+
 
 # Group Category
 
