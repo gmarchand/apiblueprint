@@ -122,44 +122,9 @@ API uses [OAuth 2.0 client credential](http://tools.ietf.org/html/rfc6749#sectio
 
 # Group Category
 
-## Content Category [/category/]
+## Category Item [/category/{id}]
 
 + Model (application/hal+json)
-    HAL+JSON representation of Category Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
-
-    + Headers
-
-            Location : /category
-
-    + Body
-    
-            {
-            "id": 42,
-            "title": "drama",
-            "description": "bla bla bla",
-            
-            "_links": {
-                    "self": { "href": "/category/42" },
-                    "parent": [
-                        { "href": "/category/12", "title": "genre", level: "1"},
-                        { "href": "/category/13", "title": "movie", level: "2"},
-                    ],
-                    "child" : [
-                        { "href": "/category/52", "title": "comedy"},
-                    ],
-                }
-            }
-
-
-### Create a category [POST]
-
-+ Response 200 (application/hal+json)
-
-    [Content Category][] 
-
-### List root category [GET]
-
-+ Response 200 (application/hal+json)
 
         {
             "_links": [
@@ -174,35 +139,34 @@ API uses [OAuth 2.0 client credential](http://tools.ietf.org/html/rfc6749#sectio
             ]
         }
 
-## Content Category [/category/{id}] 
-Categorization of content
-
-Contents are categorized by theme, type and tags.
-
-
-
-### [GET]
+### GET
 + Parameters 
     + id (int) ... Category Id of a content
 
 + Response 200 (application/hal+json)
 
-    [Content Category][]
+    [Category Item][]
 
-### Update a category [PATCH]
+### PATCH
 + Parameters 
     + id (int) ... Category Id of a content
     
 + Response 200 (application/hal+json)
 
-    [Content Category][]
+    [Category Item][]
 
-### Delete a category [DELETE]
+### DELETE
 + Parameters 
     + id (int) ... Category Id of a content
     
 + Response 204
 
+### POST /category
+Create a category
+
++ Response 200 (application/hal+json)
+
+    [Category Item][]
 
 # Group Programme
 Group all programmes related ressources
@@ -212,21 +176,16 @@ Programme Model is bases on [BBC Programme Ontology](http://www.bbc.co.uk/ontolo
 Programme Ontology covers brands, series (seasons) and episodes.
 
 
-## Programme [/programmes]
+## Programme [/programmes/{id}]
+A single programme object
 
 + Model (application/hal+json)
     HAL+JSON representation of Programme Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
-
-    + Headers
-
-            Location : /programmes
 
     + Body
     
             {
                 "id": "42",
-                "type": "brand",
-                "format": "movie",
                 "external-id": {
                     "tv": [
                         {
@@ -263,6 +222,7 @@ Programme Ontology covers brands, series (seasons) and episodes.
                 "version": "3",
                 "created_at": "2014-04-14T02:15:15Z",
                 "updated_at": "2014-04-14T02:15:15Z",
+                "type": "brand",
                 "title": [
                     {
                         "source": "web",
@@ -293,30 +253,6 @@ Programme Ontology covers brands, series (seasons) and episodes.
                         "data": "Rita's ex-hubby, the crack addict, repeatedly raped her, knocked her around. Ever since then she's been completely uninterested in sex. That works for me! although a spare will do.Okay. Uh, is there something I can.. And I will. I can always see other people's problems more clearly than my own. Everyone hides who they are at least some of their time.Lightweight, uh... Harry Morgan, tonight's the night. It's going to happen again and again. Has to happen. Nice night. Miami is a great town. I'm drifting, but not to sleep, my father taught me one thing above all others; to be sure. And I am. Matt Chambers, Miami is your last stop. If God is in the details and if I believed in God, he's in this room with me. I just wish he had brought an extension cord."
                     }
                 ],
-                "_embedded": {
-                    "images": [
-                        {
-                            "_links": {
-                                "self": {
-                                    "href": "/ressources/images/12"
-                                }
-                            },
-                            "slug": "breaking-bad-labo",
-                            "title": "Met labo",
-                            "original": "1024x760"
-                        },
-                        {
-                            "_links": {
-                                "self": {
-                                    "href": "/ressources/images/12"
-                                }
-                            },
-                            "slug": "walter-white",
-                            "title": "Walter White",
-                            "original": "1024x760"
-                        }
-                    ]
-                },
                 "_links": {
                     "self": {
                         "href": "/programmes/42"
@@ -425,78 +361,7 @@ Programme Ontology covers brands, series (seasons) and episodes.
                 }
             }
 
-### Search [GET]
-Retrieve a programme list via query search
-
-+ Response 200
-
-        {
-            "_links": [
-                {
-                    "href": "/programmes/42",
-                    "title": "La Météo de Doria du 15/10/2012"
-                },
-                {
-                    "href": "/programmes/54",
-                    "title": "Le Grand Journal"
-                }
-            ]
-        }
-
-
-### Create a programme [POST]
-+ Response 200 (application/hal+json)
-       
-    [Programme][]
-
-
-## Channel List [/programmes/schedules/]
-List of all Tv channels available
-
-### [GET]
-+ Response 200 (application/hal+json)
-       
-        {
-            "epg": [
-                {
-                    "epgid": "123",
-                    "title": "canalplus"
-                },
-                {
-                    "epgid": "124",
-                    "title": "canalplus cinema"
-                }
-            ]
-        }
-
-
-## TV programme schedule by day [/programmes/schedules/{epgid}{/date}] 
-List all programmes of a particular day
-### [GET]
-+ Parameters 
-    + epgid (int) ... ID of TV Channel.
-    + date = `today` (optional,string,`1977-04-22`) ... ISO 8601 date to retrieve programmes of the day for.
-
-+ Response 200 (application/hal+json)
-
-        {
-            "_links": [
-                {
-                    "href": "/programmes/42",
-                    "title": "La Météo de Doria du 15/10/2012"
-                },
-                {
-                    "href": "/programmes/54",
-                    "title": "Le Grand Journal"
-                }
-            ]
-        }
-
-
-
-## Programmes [/programmes/{id}]
-A single programme object
-### Get a programme [GET] 
+### GET 
 + Parameters 
     + id (int) ... Programme ID.
     
@@ -505,7 +370,7 @@ A single programme object
        
     [Programme][]
 
-### Update a programme [PATCH]
+### PATCH
 Use of [RFC 6902](http://tools.ietf.org/html/rfc6902) to update an object
 
 + Request (application/json-patch+json)
@@ -517,14 +382,14 @@ Use of [RFC 6902](http://tools.ietf.org/html/rfc6902) to update an object
 
 + Response 204 
 
-### Delete a programme [DELETE]
+### DELETE
 
 + Response 204
        
 
-## Programmes [/programmes/progid={progid}]
+## GET /programmes/progid={progid}
 A single programme object
-### Get a programme [GET] 
+ 
 + Parameters 
     + progid (int) ... Programme ID.
     
@@ -532,9 +397,9 @@ A single programme object
        
     [Programme][]
 
-## Programmes [/programmes/diffid={diffid}]
+## GET /programmes/diffid={diffid}
 A single programme object
-### Get a programme [GET] 
+
 + Parameters 
     + diffid (int) ... Programme ID.
     
@@ -542,180 +407,8 @@ A single programme object
        
      [Programme][]
 
-## Programmes [/programmes/{id}/suggest]
-Suggest links to this programm based on semantics 
-### Get a programme [GET] 
-+ Parameters 
-    + id (int) ... Programme ID.
-    
-+ Response 200 (application/hal+json)
-       
-     [Programme][]
-    + Body
-    
-            {
-                "_links": {
-                    "self": {
-                        "href": "/programmes/42/suggest"
-                    },
-                    "category": [
-                        {
-                            "href": "/category/12",
-                            "title": "series"
-                        },
-                        {
-                            "href": "/category/15",
-                            "title": "drama"
-                        }
-                    ],
-                    "persons": [
-                        {
-                            "href": "/persons/12",
-                            "title": "Bryan Cranston",
-                            "role": "actor"
-                        },
-                        {
-                            "href": "/persons/13",
-                            "title": "Aaron Paul",
-                            "role": "actor"
-                        },
-                        {
-                            "href": "/persons/14",
-                            "title": "Vince Gilligan",
-                            "role": "director"
-                        }
-                    ],
-                    "images": [
-                        {
-                            "href": "/ressources/images/12",
-                            "slug": "breaking-bad-labo",
-                            "title": "Met labo",
-                            "original": "1024x760"
-                        },
-                        {
-                            "href": "/ressources/images/12",
-                            "slug": "walter-white",
-                            "title": "Walter White",
-                            "original": "1024x760"
-                        }
-                    ],
-                    "videos": [
-                        {
-                            "href": "/videos/free/12",
-                            "title": "Bande annonce 1 VO"
-                        },
-                        {
-                            "href": "/videos/free/12/selections/14",
-                            "title": "Liste de selections Meteo de Doria"
-                        }
-                    ],
-                    "brand": [
-                        {
-                            "href": "/programmes/50",
-                            "title": "Breaking bad"
-                        }
-                    ],
-                    "seasons": [
-                        {
-                            "href": "/programmes/50",
-                            "title": "Saison 1"
-                        },
-                        {
-                            "href": "/programmes/52",
-                            "title": "Saison 2"
-                        }
-                    ],
-                    "episodes": [
-                        {
-                            "href": "/programmes/52",
-                            "title": "Episode 3"
-                        }
-                    ],
-                    "articles": {
-                        "href": "/articles/22"
-                    },
-                    "_links.images.slug": {
-                        "href": "http://media.canalplus.fr/{width}x{height}/{id}{?-SMART}.{ext}",
-                        "templated": "true"
-                    }
-                }
-            }
-
-
-
-# Group Person
-## Person [/persons]
-+ Model (application/hal+json)
-    HAL+JSON representation of Programme Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
-
-    + Headers
-
-            Location : /persons
-
-    + Body
-    
-            {
-                "id": "42",
-                "version": "3",
-                "created_at": "2014-04-14T02:15:15Z",
-                "updated_at": "2014-04-14T02:15:15Z",
-                "fname": "Brad",
-                "lname": "Pitt",
-                "surname": "Brad Pitt",
-                "nationality": "American",
-                "birthday": "",
-                "birthcity": "",
-                "deathday": "",
-                "biography": "",
-                "_links": {
-                    "self": {
-                        "href": "/persons/42"
-                    },
-                    "videos": {
-                        "href": "/videos/42/"
-                    },
-                    "articles": {
-                        "href": "/articles/42/articles"
-                    },
-                    "awards": {
-                        "href": "/programmes/42/awards"
-                    },
-                    "social": [
-                        {
-                            "id": "twitter_account",
-                            "href": "https://twitter.com/BradPittsPage"
-                        },
-                        {
-                            "id": "facebook_fanpage",
-                            "href": "https://www.facebook.com/Brad.Official.Page"
-                        },
-                        {
-                            "id": "facebook_profilepage",
-                            "href": "https://www.facebook.com/Brad.Official.Page"
-                        }
-                    ],
-                    "images": [
-                        {
-                            "href": "/ressources/images/12",
-                            "slug": "breaking-bad-labo",
-                            "title": "Met labo",
-                            "original": "1024x760"
-                        },
-                        {
-                            "href": "/ressources/images/12",
-                            "slug": "walter-white",
-                            "title": "Walter White",
-                            "original": "1024x760"
-                        }
-                    ],
-                    "_link.images.slug": {
-                        "href": "http://media.canalplus.fr/{width}x{height}/{slug}{?-SMART}.{ext}",
-                        "templated": "true"
-                    }
-                }
-            }
-
-### List [GET] 
+## GET /programme/schedules/
+List of all Tv channels available
 
 + Response 200 (application/hal+json)
        
@@ -731,148 +424,6 @@ Suggest links to this programm based on semantics
                 }
             ]
         }
-
-### Create a person [POST]
-
-+ Response 200 (application/hal+json)
-    [Person][]
-
-
-## Person [/persons/{id}]
-A single person object
-### Get [GET] 
-+ Parameters 
-    + id (int) ... person ID.
-    
-+ Response 200 (application/hal+json)
-       
-    [Person][]
-
-### Update [PATCH]
-Use of [RFC 6902](http://tools.ietf.org/html/rfc6902) to update an object
-
-+ Request (application/json-patch+json)
-    + Parameters 
-        + id (int) ... Programme ID.
-    + Body
-        
-            [  {"replace": "/fname[?(@.source=='web')]", "value": "Braddy"}]
-
-+ Response 200 (application/hal+json)
-    [Person][]
-
-### Delete [DELETE]
-
-+ Response 204
-
-
-# Group Characters
-
-## Character [/characters]
-
-+ Model (application/hal+json)
-    HAL+JSON representation of Programme Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
-
-    + Headers
-
-            Location : /characters
-
-    + Body
-    
-            {
-                "id": "42",
-                "version": "3",
-                "created_at": "2014-04-14T02:15:15Z",
-                "updated_at": "2014-04-14T02:15:15Z",
-                "fname": "Walter",
-                "lname": "Walt",
-                "description" : "Walter White a étudié à l'université California Institute of Technology avec Elliott Schwartz dans le domaine de la cristallographie1. 2. En 1985, les recherches de Walt concernant la radiographie contribuent à un projet qui reçoit le prix Nobel de chimie. Il cofonde par la suite la compagnie « Gray Matter Technologies » avec son ami Elliott Schwartz. Walter quitte ensuite son assistante de laboratoire, Gretchen. pendant les vacances avec sa famille, laissant tout derrière, son assistante et ses recherches. Gretchen se marie avec Elliott, et Gray Matter devient une entreprise couronnée de succès grâce aux recherches de Walt. Walter estime secrètement que son travail lui1 a été volé et blâme amèrement Elliott et Gretchen pour son sort.",
-                "_links": {
-                    "self": {
-                        "href": "/characters/42"
-                    },
-                    "videos": {
-                        "href": "/videos/42"
-                    },
-                    "social": [
-                        {
-                            "id": "twitter_account",
-                            "href": "https://twitter.com/WalterWhite"
-                        },
-                        {
-                            "id": "facebook_fanpage",
-                            "href": "https://www.facebook.com/walterwhitepage"
-                        },
-                        {
-                            "id": "facebook_profilepage",
-                            "href": "https://www.facebook.com/walterwite"
-                        }
-                    ],
-                    "_links.images.slug": {
-                        "href": "http://media.canalplus.fr/{width}x{height}/{slug}{?-SMART}.{ext}",
-                        "templated": "true"
-                    }
-                    "images": [
-                    {
-                        "href": "/ressources/images/12",
-                        "slug": "breaking-bad-labo",
-                        "title": "Met labo",
-                        "original": "1024x760"
-                    },
-                    {
-                        "href": "/ressources/images/12",
-                        "slug": "walter-white",
-                        "title": "Walter White",
-                        "original": "1024x760"
-                    }
-                ],
-                }
-            }
-
-
-### List [GET] 
-
-+ Response 200 (application/hal+json)
-       
-        {
-            "_links": [
-                {
-                    "href": "/characters/42",
-                    "title": "Walter White"
-                },
-                {
-                    "href": "/persons/44",
-                    "title": "Olivia Pope"
-                }
-            ]
-        }
-
-### Create a person [POST]
-
-+ Response 200 (application/hal+json)
-    [Person][]
-
-## Character [/characters/{id}]
-A single character object
-
-### Get [GET] 
-+ Parameters 
-    + id (int) ... character ID.
-    
-+ Response 200 (application/hal+json)
-       
-    [Character][]
-
-### Update [POST]
-
-+ Response 200 (application/hal+json)
-       
-    [Character][]
-
-### Delete [DELETE]
-
-+ Response 204
-
 
 # Group Articles
 ## Article [/articles]
@@ -925,7 +476,7 @@ A single character object
                 }
             }
 
-### List [GET] 
+### GET
 
 + Response 200 (application/hal+json)
        
