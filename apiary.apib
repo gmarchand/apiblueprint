@@ -88,15 +88,14 @@ parameter `sort` can be used to describe sorting rules. Accommodate complex sort
 * A mon avis, il faut supprimer les attributs qui ne sont pas des `href` de l'objet links car on va avoir du mal à faire des patchs 
 http://jsonapi.org/format/ > § Updating a Document (PATCH). **Faire un Diagramme de séquence dans les STDs**
 
-# Authentication
+# Group Authentication
 
-## Authentication [/oauth/accessToken]
+## POST /oauth/accessToken
 
 API uses [OAuth 2.0 client credential](http://tools.ietf.org/html/rfc6749#section-4.4) granted access tokens for authentication. This method is one-legged and uses the API client's credentials sent as HTTP basic authentication to authorize and request an access token for subsequent requests.
 
 - HTTP Basic Auth - `base64encode(clientId:clientSecret)`
 
-### [POST]
 + Headers
 
         Authentication: Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0
@@ -426,10 +425,10 @@ List of all Tv channels available
         }
 
 # Group Articles
-## Article [/articles]
+## Article [/articles/{$id}]
 + Model (application/hal+json)
     HAL+JSON representation of Article Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
-
+    
     + Headers
 
             Location : /articles
@@ -477,76 +476,42 @@ List of all Tv channels available
             }
 
 ### GET
-
-+ Response 200 (application/hal+json)
-       
-        {
-            "_links": [
-                {
-                    "href": "/articles/4531132",
-                    "title": "La France perd la Coupe du Monde"
-                },
-                {
-                    "href": "/articles/4531112",
-                    "title": "Scary Movie gagne l'Oscar du Film 2013"
-                }
-            ]
-        }
-
-### Create a article [POST]
-
-+ Response 200 (application/hal+json)
-    
-    [Article][]
-
-## Article [/articles/{id}]
-A single article object
-### Get [GET] 
 + Parameters 
-    + id (int) ... article ID.
-    
+    + id (int) ... article ID.    
 + Response 200 (application/hal+json)
        
     [Article][]
 
-### Update [POST]
+### POST
++ Parameters 
+    + id (int) ... article ID.    
 
 + Response 200 (application/hal+json)
     
     [Article][]
 
-### Delete [DELETE]
+### DELETE
++ Parameters 
+    + id (int) ... article ID.    
 
 + Response 204
 
 
-# Group Video
+### POST /articles
 
-## List [/videos/free/]
 + Response 200 (application/hal+json)
-       
-        {
-            "_links": [
-                {
-                    "href": "/videos/4531132",
-                    "title": "BA VO 1 de Zombieland"
-                },
-                {
-                    "href": "/videos/4531112",
-                    "title": "BA Scary Movie 32"
-                }
-            ]
-        }
+    
+    [Article][]
+
+
+
+# Group Video
 
 ## Video [/videos/free/{id}]
 A single video object for free video platform
 
 + Model (application/hal+json)
     HAL+JSON representation of Programme Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
-
-    + Headers
-
-            Location : /videos/free
 
     + Body
     
@@ -596,7 +561,7 @@ A single video object for free video platform
             }
             
 
-### Get [GET] 
+### GET 
 + Parameters 
     + id (int) ... video ID.
     
@@ -605,9 +570,9 @@ A single video object for free video platform
     [Video][]
 
 
-## Video listing [/videos/free/gid={gid}{/uid=uid}{/rid=rid}{/cid=cid}]
+
+### GET /videos/free/gid={gid}{/uid=uid}{/rid=rid}{/cid=cid} 
 Listing of video category and video objects, find by GURC identifiers
-### Get [GET] 
 + Parameters 
     + gid (int) ... Galaxy ID.
     + uid (optional,int) ... Universe ID.
@@ -657,11 +622,8 @@ Listing of video category and video objects, find by GURC identifiers
             }
         }
 
-## Video Collection Listing [/videos/free/gid={gid}/selections/]
-Lit all collections of video
 
-
-### Get [GET] 
+### GET /videos/free/gid={gid}/selections/ 
 + Parameters 
     + gid (int) ... Galaxy ID.
 
@@ -681,12 +643,7 @@ Lit all collections of video
             ]
         }
 
-## Video Collection [/videos/free/gid={gid}/selections/{id}]
-Listing of video selection list, 
-
-
-
-### Get [GET] 
+### GET /videos/free/gid={gid}/selections/{id} 
 + Parameters 
     + gid (int) ... Galaxy ID.
     + id (int) ... Selection ID.
@@ -726,7 +683,7 @@ Listing of video selection list,
 # Group Ressource
 Media Ressources
 
-## Ressource [/resources/]
+## Resource [/resources/]
 
 + Model (application/hal+json)
     HAL+JSON representation. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header and HAL links.
@@ -761,34 +718,43 @@ Media Ressources
                 "updated_at": "1977-04-22T06:00:00Z"
             }
 
-### Search [GET] 
-+ Response 200 (application/hal+json)
-       
-        {
-            "_links": [
-                {
-                    "href": "/ressources/935214",
-                    "title": "Walter White"
-                },
-                {
-                    "href": "/ressources/44",
-                    "title": "Jessica Ramirez"
-                }
-            ]
-        }
 
-### Create [POST] 
-1. Client -> Rest Service : Post the metadata first to create the ressource object.
+### POST
+How to create a Resource ?
+
+1. Client -> `/resources` : Post the metadata first to create the ressource object.
 1. Rest Service -> Client : Return an ID. 
-1. Client -> Rest Service : sends the file to `/ressources/{id}/content`, and the server re-associates the file and the metadata.
+1. Client -> `/resources/{id}/content` : sends the file to `/resources/{id}/content`, and the server re-associates the file and the metadata.
 
 + Response 200 (application/hal+json)
        
-    [Ressource][]
+    [Resource][]
 
-## Ressource File [/resources/{id}/content]
+## Ressource [/resources/{id}]
 
-### Upload [POST]  
+### GET 
++ Parameters 
+    + id (int) ... ressources ID.
+    
++ Response 200 (application/hal+json)
+       
+    [Resource][]
+
+### POST
++ Parameters 
+    + id (int) ... ressources ID.
+    
++ Response 200 (application/hal+json)
+       
+    [Resource][]
+
+### DELETE
+
++ Response 204 
+
+### POST  /resources/{id}/content
+Upload File
+
 + Request (multipart/form-data, boundary=AaB03x)
     
     + Headers
@@ -809,26 +775,19 @@ Media Ressources
 
         {"message":"File Uploaded and Linked","code": 200}
 
+# Group Search
 
-## Ressource [/resources/{id}]
+## GET /search/categories
++ Response 418
 
-### Get [GET] 
-+ Parameters 
-    + id (int) ... ressources ID.
-    
-+ Response 200 (application/hal+json)
-       
-    [Ressource][]
+## GET /search/programmes
++ Response 418
 
-### Update [POST] 
-+ Parameters 
-    + id (int) ... ressources ID.
-    
-+ Response 200 (application/hal+json)
-       
-    [Ressource][]
+## GET /search/programmes/schedules
++ Response 418
 
-### Delete [DELETE]
+## GET /search/articles
++ Response 418
 
-+ Response 204 
-
+## GET /search/ressources
++ Response 418
